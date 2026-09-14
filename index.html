@@ -248,27 +248,34 @@
     opacity: 0;
     animation: heroFade 21s infinite;
   }
+  .hero-photo { animation-duration: 60s; }
   .hero-photo:nth-child(1) { animation-delay: 0s; }
-  .hero-photo:nth-child(2) { animation-delay: 7s; }
-  .hero-photo:nth-child(3) { animation-delay: 14s; }
+  .hero-photo:nth-child(2) { animation-delay: 10s; }
+  .hero-photo:nth-child(3) { animation-delay: 20s; }
+  .hero-photo:nth-child(4) { animation-delay: 30s; }
+  .hero-photo:nth-child(5) { animation-delay: 40s; }
+  .hero-photo:nth-child(6) { animation-delay: 50s; }
   @keyframes heroFade {
-    0%   { opacity: 0; transform: scale(1); }
-    3%   { opacity: 1; }
-    30%  { opacity: 1; transform: scale(1.07); }
-    34%  { opacity: 0; }
-    100% { opacity: 0; transform: scale(1); }
+    0%    { opacity: 0; transform: scale(1); }
+    2.5%  { opacity: 1; }
+    14%   { opacity: 1; transform: scale(1.05); }
+    16.7% { opacity: 0; }
+    100%  { opacity: 0; transform: scale(1); }
   }
   .hero-scrim {
     position: absolute; inset: 0; z-index: 1;
-    background: linear-gradient(180deg, rgba(8,20,45,.68) 0%, rgba(8,20,45,.4) 45%, rgba(8,20,45,.72) 100%);
+    background:
+      linear-gradient(100deg, rgba(8,20,45,.88) 0%, rgba(8,20,45,.66) 38%, rgba(8,20,45,.3) 70%, rgba(8,20,45,.22) 100%),
+      linear-gradient(180deg, rgba(8,20,45,.3) 0%, rgba(8,20,45,0) 40%, rgba(8,20,45,.45) 100%);
   }
   @media (prefers-reduced-motion: reduce) {
     .hero-photo { animation: none; opacity: 0; }
     .hero-photo:first-child { opacity: 1; }
   }
   .hero-top { position: relative; z-index: 2; padding-block: 92px; width: 100%; }
-  .hero h1 { font-size: clamp(36px, 5.4vw, 58px); color: var(--on-navy); max-width: 15ch; }
-  .hero-lede { max-width: 56ch; font-size: 17.5px; color: var(--on-navy-soft); margin-top: 20px; }
+  .hero h1 { font-size: clamp(36px, 5.4vw, 58px); color: var(--on-navy); max-width: 15ch; text-shadow: 0 2px 18px rgba(4,12,30,.5); }
+  .hero-kicker { max-width: 50ch; font-size: 19px; font-weight: 600; color: var(--on-navy); text-shadow: 0 1px 12px rgba(4,12,30,.5); }
+  .hero-lede { max-width: 58ch; font-size: 17px; color: var(--on-navy-soft); margin-top: 18px; text-shadow: 0 1px 12px rgba(4,12,30,.5); }
   .hero-cta { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
 
   .stat-strip {
@@ -277,16 +284,16 @@
   }
   .stat-row {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 0;
   }
   .stat {
-    padding: 26px 22px;
+    padding: 38px 32px;
     border-right: 1px solid var(--line);
   }
   .stat:last-child { border-right: none; }
-  .stat .num { font-family: "Manrope", sans-serif; font-weight: 800; font-size: 22px; color: var(--ink); }
-  .stat .lbl { font-size: 13.5px; color: var(--ink-soft); margin-top: 4px; }
+  .stat .num { font-family: "Manrope", sans-serif; font-weight: 800; font-size: 26px; color: var(--ink); }
+  .stat .lbl { font-size: 15px; color: var(--ink-soft); margin-top: 8px; }
   .pulse-dot {
     display: inline-block; width: 8px; height: 8px; border-radius: 50%;
     background: var(--accent); margin-right: 7px; position: relative; top: -1px;
@@ -295,10 +302,10 @@
   @media (prefers-reduced-motion: reduce) { .pulse-dot { animation: none; } }
   @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
 
-  @media (max-width: 800px) {
-    .stat-row { grid-template-columns: repeat(2, 1fr); }
-    .stat:nth-child(2) { border-right: none; }
-    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--line); }
+  @media (max-width: 860px) {
+    .stat-row { grid-template-columns: 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--line); padding: 28px 24px; }
+    .stat:last-child { border-bottom: none; }
   }
 
   /* ---------- HUB CARDS (Home teasers) ---------- */
@@ -476,14 +483,17 @@
     <section class="hero">
       <div class="hero-photos" aria-hidden="true">
         <div class="hero-photo" style="background-image:url('assets/hero-glasgow.jpg')"></div>
+        <div class="hero-photo" style="background-image:url('assets/hero-kelvingrove.jpg')"></div>
         <div class="hero-photo" style="background-image:url('assets/hero-edinburgh.jpg')"></div>
-        <div class="hero-photo" style="background-image:url('assets/hero-glasgow-rooftops.jpg'); background-position:center 25%;"></div>
+        <div class="hero-photo" style="background-image:url('assets/hero-forth-bridge.jpg')"></div>
+        <div class="hero-photo" style="background-image:url('assets/hero-st-andrews.jpg'); background-position:center 35%;"></div>
+        <div class="hero-photo" style="background-image:url('assets/hero-dundee.jpg')"></div>
       </div>
       <div class="hero-scrim" aria-hidden="true"></div>
       <div class="wrap hero-top">
-        <p class="eyebrow">Property Factoring &middot; Scotland</p>
-        <h1 style="margin-top:14px;">Factoring, made clear.</h1>
-        <p class="hero-lede">At ClearFactor, we provide transparent, proactive property factoring and management to homeowners, residents' associations and developers across Scotland. Technology sits behind everything we do, so queries are answered and jobs are logged quickly, any time of day, every day of the year. Traditional factoring standards haven't kept up with what owners expect today, and it's time that changed. ClearFactor is built for the way property management should work now.</p>
+        <h1>Factoring, made clear.</h1>
+        <p class="hero-kicker" style="margin-top:22px;">Traditional factoring standards haven't kept up with what owners expect today, and it's time that changed.</p>
+        <p class="hero-lede">At ClearFactor, we provide transparent, proactive property management to homeowners, residents' associations and developers across Scotland. Technology sits behind everything we do, so queries are answered and jobs are logged quickly, any time of day, every day of the year. ClearFactor is built for the way property management should work now.</p>
         <div class="hero-cta">
           <a class="btn btn-on-navy" href="#contact">Get a quote</a>
           <a class="btn btn-outline-on-navy" href="#services">Explore services</a>
@@ -494,10 +504,9 @@
     <section class="stat-strip tight" style="padding-block:0;">
       <div class="wrap" style="padding:0;">
         <div class="stat-row">
-          <div class="stat"><div class="num"><span class="pulse-dot" aria-hidden="true"></span>AI-Assistance</div><div class="lbl">Round-the-clock support, powered by smart technology</div></div>
-          <div class="stat"><div class="num">Clear pricing</div><div class="lbl">Itemised invoicing, no bundled charges</div></div>
-          <div class="stat"><div class="num">Local</div><div class="lbl">Vetted, local contractors for every common repair</div></div>
-          <div class="stat"><div class="num">1 Fee</div><div class="lbl">One simple management fee, no hidden extras</div></div>
+          <div class="stat"><div class="num"><span class="pulse-dot" aria-hidden="true"></span>Dedicated team</div><div class="lbl">Our friendly, professional team and your assigned property manager are here for whatever you need, with technology at the core of how we work to keep responses quick and efficient.</div></div>
+          <div class="stat"><div class="num">Clear pricing</div><div class="lbl">Itemised invoicing with no bundled charges, so you always know exactly what you are paying for.</div></div>
+          <div class="stat"><div class="num">Local</div><div class="lbl">Professional, experienced and vetted local contractors for every common repair.</div></div>
         </div>
       </div>
     </section>
@@ -918,7 +927,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 ClearFactor. Property factors, Scotland.</span>
+      <span>&copy; 2026 ClearFactor.</span>
       <span>Registered with the Scottish Property Factor Register. Registration number PF000342.</span>
     </div>
   </div>
