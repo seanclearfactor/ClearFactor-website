@@ -1,6 +1,6 @@
 <title>ClearFactor</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap');
 
   :root {
     --ground: #ffffff;
@@ -91,13 +91,13 @@
   .wrap { max-width: 1140px; margin: 0 auto; padding-inline: 28px; }
 
   .eyebrow {
-    font-family: "IBM Plex Mono", ui-monospace, monospace;
-    font-size: 12px;
-    letter-spacing: 0.1em;
+    font-family: "Public Sans", sans-serif;
+    font-weight: 700;
+    font-size: 12.5px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--accent);
   }
-  .on-navy .eyebrow { color: #6fc3f0; }
 
   [hidden] { display: none !important; }
 
@@ -206,7 +206,6 @@
       z-index: 49;
     }
     body.menu-open nav.links.mobile-open a.navlink { padding: 14px 8px; font-size: 16px; border-bottom: 1px solid var(--line); border-radius: 0; }
-    .nav-actions .btn span.long { display: none; }
   }
 
   /* ---------- PAGE / SECTION SCAFFOLDING ---------- */
@@ -232,14 +231,45 @@
   @media (max-width: 720px) { .section-head { grid-template-columns: 1fr; gap: 14px; } }
 
   /* ---------- HERO ---------- */
-  .hero { background: var(--navy); color: var(--on-navy); position: relative; overflow: hidden; }
-  .hero-top { position: relative; z-index: 2; padding-block: 76px 0; }
+  .hero {
+    position: relative;
+    overflow: hidden;
+    color: var(--on-navy);
+    min-height: 560px;
+    display: flex;
+    align-items: center;
+    padding-block: 0;
+  }
+  .hero-photos { position: absolute; inset: 0; z-index: 0; background: var(--navy); }
+  .hero-photo {
+    position: absolute; inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    animation: heroFade 21s infinite;
+  }
+  .hero-photo:nth-child(1) { animation-delay: 0s; }
+  .hero-photo:nth-child(2) { animation-delay: 7s; }
+  .hero-photo:nth-child(3) { animation-delay: 14s; }
+  @keyframes heroFade {
+    0%   { opacity: 0; transform: scale(1); }
+    3%   { opacity: 1; }
+    30%  { opacity: 1; transform: scale(1.07); }
+    34%  { opacity: 0; }
+    100% { opacity: 0; transform: scale(1); }
+  }
+  .hero-scrim {
+    position: absolute; inset: 0; z-index: 1;
+    background: linear-gradient(180deg, rgba(8,20,45,.86) 0%, rgba(8,20,45,.66) 45%, rgba(8,20,45,.92) 100%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-photo { animation: none; opacity: 0; }
+    .hero-photo:first-child { opacity: 1; }
+  }
+  .hero-top { position: relative; z-index: 2; padding-block: 92px; width: 100%; }
   .hero h1 { font-size: clamp(36px, 5.4vw, 58px); color: var(--on-navy); max-width: 15ch; }
   .hero-lede { max-width: 56ch; font-size: 17.5px; color: var(--on-navy-soft); margin-top: 20px; }
   .hero-cta { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
-
-  .skyline-wrap { position: relative; z-index: 1; margin-top: 54px; }
-  .skyline-wrap svg { display: block; width: 100%; height: auto; }
 
   .stat-strip {
     background: var(--surface);
@@ -285,7 +315,6 @@
     transition: border-color 0.15s ease, transform 0.15s ease;
   }
   .hub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
-  .hub-card .num { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--accent); }
   .hub-card h3 { font-size: 18px; }
   .hub-card p { color: var(--ink-soft); font-size: 14.5px; }
   .hub-card .go { font-size: 13.5px; font-weight: 700; color: var(--accent-strong); margin-top: 4px; }
@@ -321,16 +350,19 @@
   @media (max-width: 760px) { .csr-grid { grid-template-columns: 1fr; } }
 
   /* ---------- SERVICES ---------- */
-  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
-  .service-card { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 30px 26px; display: flex; flex-direction: column; gap: 12px; min-height: 200px; }
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .service-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 28px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
   .service-card .glyph { width: 28px; height: 28px; color: var(--accent); }
   .service-card h3 { font-size: 17px; font-weight: 700; }
   .service-card p { color: var(--ink-soft); font-size: 14.5px; }
-  .service-card .tag {
-    margin-top: auto; align-self: start;
-    font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase;
-    color: var(--accent-strong); background: var(--accent-tint); padding: 4px 8px; border-radius: 4px;
-  }
   @media (max-width: 900px) { .services-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
 
@@ -356,7 +388,7 @@
   .office-card { border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
   .office-card h4 { font-size: 15px; }
   .office-card p { font-size: 14px; color: var(--ink-soft); margin-top: 4px; }
-  .contact-detail dt { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+  .contact-detail dt { font-family: "Public Sans", sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
   .contact-detail dd { margin: 4px 0 0; font-size: 15.5px; }
   .contact-detail a { text-decoration: none; border-bottom: 1px solid var(--line); }
   .contact-detail a:hover { border-color: var(--accent); color: var(--accent-strong); }
@@ -391,7 +423,7 @@
   .portal-list span { color: var(--on-navy-soft); font-size: 15px; }
   .portal-badge {
     display: inline-flex; align-items: center; gap: 7px;
-    font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.04em;
+    font-family: "Public Sans", sans-serif; font-weight: 700; font-size: 11.5px; letter-spacing: 0.04em; text-transform: uppercase;
     color: var(--on-navy-soft); border: 1px solid var(--on-navy-line); padding: 6px 10px; border-radius: 20px; margin-top: 18px;
   }
   @media (max-width: 800px) { .portal-hero { grid-template-columns: 1fr; } }
@@ -403,7 +435,7 @@
   .footer-brand .mark { width: 28px; height: 28px; }
   .footer-brand span { font-family: "Manrope", sans-serif; font-weight: 800; font-size: 17px; color: var(--on-navy); }
   .footer-grid p.desc { color: var(--on-navy-soft); font-size: 14px; max-width: 32ch; }
-  .footer-col h5 { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-navy-soft); margin-bottom: 14px; }
+  .footer-col h5 { font-family: "Public Sans", sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--on-navy-soft); margin-bottom: 14px; }
   .footer-col ul { display: grid; gap: 10px; }
   .footer-col a { text-decoration: none; color: var(--on-navy-soft); font-size: 14px; }
   .footer-col a:hover { color: var(--on-navy); }
@@ -429,7 +461,7 @@
       <a class="navlink" data-page="contact" href="#contact">Contact</a>
     </nav>
     <div class="nav-actions">
-      <a class="btn btn-accent btn-sm" href="#portal"><span class="long">My</span> ClearFactor</a>
+      <a class="btn btn-accent btn-sm" href="#portal">My ClearFactor</a>
       <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
       </button>
@@ -441,49 +473,28 @@
 
   <!-- ============ HOME ============ -->
   <div class="page" id="home">
-    <section class="hero" style="padding-bottom:0;">
+    <section class="hero">
+      <div class="hero-photos" aria-hidden="true">
+        <div class="hero-photo" style="background-image:url('assets/hero-glasgow.jpg')"></div>
+        <div class="hero-photo" style="background-image:url('assets/hero-edinburgh.jpg')"></div>
+        <div class="hero-photo" style="background-image:url('assets/hero-glasgow-rooftops.jpg'); background-position:center 25%;"></div>
+      </div>
+      <div class="hero-scrim" aria-hidden="true"></div>
       <div class="wrap hero-top">
-        <p class="eyebrow">Property factoring &middot; Scotland</p>
+        <p class="eyebrow">Property Factoring &middot; Scotland</p>
         <h1 style="margin-top:14px;">Factoring, made clear.</h1>
-        <p class="hero-lede">ClearFactor delivers transparent, proactive property factoring for homeowners, residents' associations and developers across Scotland. AI sits at the core of how we operate, so queries get answered and jobs get logged fast &mdash; 24 hours a day, 365 days a year.</p>
+        <p class="hero-lede">We provide transparent, proactive property factoring to homeowners, residents' associations and developers across Scotland. Technology sits behind everything we do, so queries are answered and jobs are logged quickly, any time of day, every day of the year.</p>
         <div class="hero-cta">
           <a class="btn btn-on-navy" href="#contact">Get a quote</a>
           <a class="btn btn-outline-on-navy" href="#services">Explore services</a>
         </div>
-      </div>
-      <div class="skyline-wrap">
-        <svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <g fill="none" stroke="var(--on-navy-line)" stroke-width="1.5">
-            <!-- Glasgow-style tenement terrace, left -->
-            <path d="M0 220 V150 H40 V130 H80 V150 H120 V150 H160 V150 H200 V150 H240 V220" />
-            <path d="M20 150 V125 M60 150 V125 M100 150 V125 M140 150 V125 M180 150 V125" />
-            <circle cx="20" cy="118" r="5" />
-            <circle cx="100" cy="118" r="5" />
-            <circle cx="180" cy="118" r="5" />
-            <!-- crane, mid-left -->
-            <path d="M300 220 V90 M300 90 H400 M300 105 L330 90 M370 90 V130 M370 130 H345 M370 130 H395" />
-            <!-- Edinburgh castle-ish rampart, centre -->
-            <path d="M470 220 V110 H495 V95 H520 V110 H545 V95 H570 V110 H595 V95 H620 V110 H645 V220" />
-            <path d="M545 110 V70 H565 V110" />
-            <path d="M545 70 L555 55 L565 70" />
-            <!-- office block, right of centre -->
-            <path d="M720 220 V60 H840 V220" />
-            <path d="M735 75 H745 M760 75 H770 M785 75 H795 M810 75 H820 M735 100 H745 M760 100 H770 M785 100 H795 M810 100 H820 M735 125 H745 M760 125 H770 M785 125 H795 M810 125 H820 M735 150 H745 M760 150 H770 M785 150 H795 M810 150 H820" />
-            <!-- tenement terrace, right -->
-            <path d="M900 220 V145 H940 V125 H980 V145 H1020 V145 H1060 V145 H1100 V145 H1140 V145 H1180 V145 H1200 V220" />
-            <path d="M920 145 V120 M960 145 V120 M1040 145 V120 M1080 145 V120 M1160 145 V120" />
-            <circle cx="920" cy="113" r="5" />
-            <circle cx="1040" cy="113" r="5" />
-            <circle cx="1160" cy="113" r="5" />
-          </g>
-        </svg>
       </div>
     </section>
 
     <section class="stat-strip tight" style="padding-block:0;">
       <div class="wrap" style="padding:0;">
         <div class="stat-row">
-          <div class="stat"><div class="num"><span class="pulse-dot" aria-hidden="true"></span>24/7</div><div class="lbl">AI-assisted response, every day of the year</div></div>
+          <div class="stat"><div class="num"><span class="pulse-dot" aria-hidden="true"></span>24/7</div><div class="lbl">Support around the clock, every day of the year</div></div>
           <div class="stat"><div class="num">100%</div><div class="lbl">Itemised invoicing, no bundled charges</div></div>
           <div class="stat"><div class="num">&pound;0</div><div class="lbl">Contractor mark-up on common repairs</div></div>
           <div class="stat"><div class="num">Scotland</div><div class="lbl">Homeowners, RAs &amp; developers, nationwide</div></div>
@@ -495,15 +506,15 @@
       <div class="wrap">
         <div class="section-head">
           <h2>Everything, in one place</h2>
-          <p class="lede">Find your way around &mdash; from what a factor does, to logging a repair, to paying your account.</p>
+          <p class="lede">Find your way around: from what a factor does, to logging a repair, to paying your account.</p>
         </div>
         <div class="hub-grid">
-          <a class="hub-card" href="#about"><span class="num">01</span><h3>About Us</h3><p>What makes us different, the team behind ClearFactor, and how we give back.</p><span class="go">Read more &rarr;</span></a>
-          <a class="hub-card" href="#services"><span class="num">02</span><h3>Services</h3><p>Repairs, cleaning, insurance, accounts and emergency response, all under one roof.</p><span class="go">See services &rarr;</span></a>
-          <a class="hub-card" href="#support"><span class="num">03</span><h3>Customer Support</h3><p>Debt recovery, homeowner guides, emergency contacts and insurance claims.</p><span class="go">Get support &rarr;</span></a>
-          <a class="hub-card" href="#payment"><span class="num">04</span><h3>Make a Payment</h3><p>Ways to pay your account and how float and arrears are handled.</p><span class="go">View payment options &rarr;</span></a>
-          <a class="hub-card" href="#portal"><span class="num">05</span><h3>My ClearFactor</h3><p>Your portal, powered by AskPorter &mdash; track jobs and message your property manager.</p><span class="go">Open the portal &rarr;</span></a>
-          <a class="hub-card" href="#contact"><span class="num">06</span><h3>Contact Us</h3><p>Get a quote, reach your property manager, or find our offices.</p><span class="go">Get in touch &rarr;</span></a>
+          <a class="hub-card" href="#about"><h3>About Us</h3><p>What makes us different, the team behind ClearFactor, and how we give back.</p><span class="go">Read more &rarr;</span></a>
+          <a class="hub-card" href="#services"><h3>Services</h3><p>Repairs, cleaning, insurance, accounts and emergency response, all under one roof.</p><span class="go">See services &rarr;</span></a>
+          <a class="hub-card" href="#support"><h3>Customer Support</h3><p>Debt recovery, homeowner guides, emergency contacts and insurance claims.</p><span class="go">Get support &rarr;</span></a>
+          <a class="hub-card" href="#payment"><h3>Make a Payment</h3><p>Ways to pay your account and how float and arrears are handled.</p><span class="go">View payment options &rarr;</span></a>
+          <a class="hub-card" href="#portal"><h3>My ClearFactor</h3><p>Your portal, powered by AskPorter. Track jobs and message your property manager.</p><span class="go">Open the portal &rarr;</span></a>
+          <a class="hub-card" href="#contact"><h3>Contact Us</h3><p>Get a quote, reach your property manager, or find our offices.</p><span class="go">Get in touch &rarr;</span></a>
         </div>
       </div>
     </section>
@@ -514,8 +525,8 @@
     <section class="tight" style="padding-top:52px;">
       <div class="wrap">
         <p class="eyebrow">About Us</p>
-        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:16ch;">A factor built around the owner, not the other way round.</h1>
-        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:60ch;">ClearFactor was founded to fix what owners dislike most about factoring: vague invoices, slow replies, and no idea what's actually being spent. We combine local Scottish property expertise with AI-assisted operations to stay responsive at a scale most factors can't match.</p>
+        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:16ch;">A factor built around the owner.</h1>
+        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:60ch;">ClearFactor was set up to make property factoring straightforward: clear invoices, prompt replies, and a clear record of what's being spent and why. We manage the common parts of your property with the same care we'd want as owners ourselves.</p>
       </div>
     </section>
 
@@ -534,17 +545,17 @@
           <div class="diff-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"></path><circle cx="12" cy="12" r="3"></circle></svg>
             <h3>AI-assisted response</h3>
-            <p>Routine queries and job logging are handled instantly, day or night &mdash; complex cases still reach a person.</p>
+            <p>Routine queries and job logging are handled instantly, day or night. More complex cases are passed straight to a person.</p>
           </div>
           <div class="diff-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"></path></svg>
             <h3>Local expertise</h3>
-            <p>We know tenement closes, sandstone repair and Scottish title conditions &mdash; not just spreadsheets.</p>
+            <p>We know tenement closes, sandstone repair and Scottish title conditions, not just spreadsheets.</p>
           </div>
           <div class="diff-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.6-9.5-9.1C.8 8.4 2.4 5 6 5c2 0 3.4 1.1 4 2.3C10.6 6.1 12 5 14 5c3.6 0 5.2 3.4 3.5 6.9C19 16.4 12 21 12 21z"></path></svg>
             <h3>A dedicated portal</h3>
-            <p>Every owner sees live job status through My ClearFactor &mdash; not just a call once a year.</p>
+            <p>Every owner sees live job status through My ClearFactor, not just a call once a year.</p>
           </div>
         </div>
       </div>
@@ -554,7 +565,7 @@
       <div class="wrap">
         <div class="section-head">
           <h2>Our team</h2>
-          <p class="lede">Profiles are being added as ClearFactor grows &mdash; check back soon to meet the people managing your building.</p>
+          <p class="lede">Profiles are being added as ClearFactor grows. Check back soon to meet the people managing your building.</p>
         </div>
         <div class="team-grid">
           <div class="team-card">
@@ -585,12 +596,12 @@
       <div class="wrap">
         <div class="section-head">
           <h2>CSR</h2>
-          <p class="lede">Our commitments as we grow &mdash; to the buildings we manage and the communities around them.</p>
+          <p class="lede">Commitments we're building in as we grow, to the buildings we manage and the communities around them.</p>
         </div>
         <div class="csr-grid">
           <div class="csr-card">
             <h3>Local contractors first</h3>
-            <p>We prioritise vetted, local tradespeople for common repairs &mdash; keeping spend in the communities we serve.</p>
+            <p>We prioritise vetted, local tradespeople for common repairs, keeping spend in the communities we serve.</p>
           </div>
           <div class="csr-card">
             <h3>Sustainable maintenance</h3>
@@ -615,43 +626,37 @@
       </div>
     </section>
     <section class="divider" style="padding-top:0;">
-      <div class="wrap" style="padding:0;">
+      <div class="wrap">
         <div class="services-grid">
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12l9-8 9 8M5 10v10h14V10"></path></svg>
             <h3>Common repairs</h3>
-            <p>Roofs, gutters, render, close lighting and stairwells &mdash; scoped, quoted and instructed to vetted contractors.</p>
-            <span class="tag">Pre-approved above &pound;500</span>
+            <p>Roofs, gutters, render, close lighting and stairwells: scoped, quoted and instructed to vetted contractors.</p>
           </div>
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20l4-10 4 6 3-4 5 8H4z"></path></svg>
             <h3>Cleaning &amp; grounds</h3>
             <p>Close cleaning, backcourt and garden maintenance, bin store upkeep, on a schedule owners agree in advance.</p>
-            <span class="tag">Scheduled</span>
           </div>
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V6l8-3z"></path></svg>
             <h3>Buildings insurance</h3>
             <p>Block policy placed and reviewed annually, with claims handled on the owners' behalf after storm or water damage.</p>
-            <span class="tag">Reviewed annually</span>
           </div>
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 10h18M7 15h4"></path></svg>
             <h3>Float &amp; accounts</h3>
             <p>A working float sized to the building, reconciled accounts, and a statement any owner can request at any time.</p>
-            <span class="tag">Held as client funds</span>
           </div>
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"></path></svg>
             <h3>Emergency response</h3>
-            <p>A round-the-clock line for anything that can't wait &mdash; burst pipes, storm damage, a close door that won't lock.</p>
-            <span class="tag">24/7 &middot; AI-triaged</span>
+            <p>A round-the-clock line for anything that can't wait: burst pipes, storm damage, a close door that won't lock.</p>
           </div>
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
             <h3>Owner communication</h3>
-            <p>Notice of works before they're instructed, and a plain-English summary after &mdash; through the portal or by email.</p>
-            <span class="tag">Via My ClearFactor</span>
+            <p>Notice of works before they're instructed, and a plain-English summary once it's done, sent through the portal or by email.</p>
           </div>
         </div>
       </div>
@@ -675,7 +680,7 @@
               <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
             </summary>
             <div class="acc-body">
-              <p>If an owner's account falls into arrears, we follow a fixed process: a friendly reminder, a formal notice, then &mdash; only if needed &mdash; referral for recovery. Interest and reasonable recovery costs may be added at that final stage.</p>
+              <p>If an owner's account falls into arrears, we follow a fixed process: a friendly reminder, a formal notice, then, only if needed, referral for recovery. Interest and reasonable recovery costs may be added at that final stage.</p>
               <p><strong>Struggling to pay?</strong> Contact us before a payment is missed. We can usually agree a short-term plan rather than let an account fall behind.</p>
             </div>
           </details>
@@ -685,7 +690,7 @@
             </summary>
             <div class="acc-body">
               <p>Plain-English guides cover the topics owners ask about most: what factoring actually covers, how the float works, how repairs get approved, and what happens when you sell your flat.</p>
-              <p>Guides are published to My ClearFactor as they're written &mdash; request a specific one from your property manager if it isn't there yet.</p>
+              <p>Guides are published to My ClearFactor as they're written. If the one you need isn't there yet, ask your property manager for it directly.</p>
             </div>
           </details>
           <details class="acc-item">
@@ -693,7 +698,7 @@
               <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
             </summary>
             <div class="acc-body">
-              <p>For anything that puts the building or a resident at immediate risk &mdash; burst pipes, storm damage, a common door that won't secure &mdash; call the 24-hour line. It's triaged instantly and, where needed, a contractor is instructed the same day.</p>
+              <p>For anything that puts the building or a resident at immediate risk, such as burst pipes, storm damage, or a common door that won't secure, call the 24-hour line. It's triaged instantly and, where needed, a contractor is instructed the same day.</p>
               <p>Not urgent? Log it through My ClearFactor instead and it's handled in the normal repairs queue.</p>
             </div>
           </details>
@@ -703,7 +708,7 @@
             </summary>
             <div class="acc-body">
               <p>Report damage to common property as soon as it's found. We log the claim with the block insurer, arrange any necessary inspection, and keep owners updated until it's settled.</p>
-              <p>Claims on an individual flat's own contents are between the owner and their personal insurer &mdash; we can point you to the block policy documents if needed.</p>
+              <p>Claims on an individual flat's own contents are between the owner and their personal insurer. We can point you to the block policy documents if you need them.</p>
             </div>
           </details>
         </div>
@@ -731,7 +736,7 @@
           <div class="pay-method">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M15 6l6 6-6 6"></path></svg>
             <h4>Bank transfer</h4>
-            <p>Pay by BACS or online banking using your account reference &mdash; found on every invoice.</p>
+            <p>Pay by BACS or online banking, using the account reference found on every invoice.</p>
           </div>
           <div class="pay-method">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 9h18"></path></svg>
@@ -741,7 +746,7 @@
           <div class="pay-method">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
             <h4>Payment plans</h4>
-            <p>If a bill catches you out, get in touch before it's due &mdash; short-term plans are agreed case by case.</p>
+            <p>If a bill catches you out, get in touch before it's due. Short-term plans are agreed case by case.</p>
           </div>
         </div>
 
@@ -751,7 +756,7 @@
               <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
             </summary>
             <div class="acc-body">
-              <p>Direct debit is our recommended method &mdash; set it up once through My ClearFactor and never miss a due date. One-off payments can be made by card online, or by bank transfer using the reference on your invoice.</p>
+              <p>Direct debit is our recommended method. Set it up once through My ClearFactor and you'll never miss a due date. One-off payments can be made by card online, or by bank transfer using the reference on your invoice.</p>
             </div>
           </details>
           <details class="acc-item">
@@ -778,7 +783,7 @@
         <div>
           <p class="eyebrow">My ClearFactor</p>
           <h1 style="font-size:clamp(32px,4.6vw,46px); margin-top:12px; max-width:14ch; color:var(--on-navy);">Your building, always in view.</h1>
-          <p style="color:var(--on-navy-soft); font-size:16.5px; margin-top:16px; max-width:52ch;">My ClearFactor is your owner portal, powered by AskPorter. See outstanding jobs, track repairs through to completion, message your property manager and pay your account &mdash; all in one place.</p>
+          <p style="color:var(--on-navy-soft); font-size:16.5px; margin-top:16px; max-width:52ch;">My ClearFactor is your owner portal, powered by AskPorter. See outstanding jobs, track repairs through to completion, message your property manager and pay your account, all in one place.</p>
           <ul class="portal-list">
             <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>Track every job, from logged to closed</span></li>
             <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>Message your property manager directly</span></li>
@@ -818,12 +823,8 @@
       <div class="wrap contact-grid">
         <div class="contact-info">
           <dl class="contact-detail">
-            <dt>Email</dt>
-            <dd><a href="mailto:hello@clearfactor.co.uk">hello@clearfactor.co.uk</a></dd>
-          </dl>
-          <dl class="contact-detail">
-            <dt>Phone</dt>
-            <dd><a href="tel:+441410000000">0141 000 0000</a></dd>
+            <dt>Enquiries</dt>
+            <dd><a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a></dd>
           </dl>
           <dl class="contact-detail">
             <dt>Emergency line</dt>
@@ -840,7 +841,7 @@
             </div>
           </div>
         </div>
-        <form class="contact-form" action="mailto:hello@clearfactor.co.uk" method="post" enctype="text/plain">
+        <form class="contact-form" action="mailto:enquiries@clearfactor.co.uk" method="post" enctype="text/plain">
           <div class="form-row">
             <div class="field">
               <label for="cf-name">Name</label>
@@ -891,7 +892,7 @@
           <img class="mark" src="assets/logo-white-on-blue.png" width="28" height="28" alt="ClearFactor">
           <span>ClearFactor</span>
         </a>
-        <p class="desc">Transparent, AI-assisted property factoring for homeowners, residents' associations and developers across Scotland.</p>
+        <p class="desc">Transparent, proactive property factoring for homeowners, residents' associations and developers across Scotland.</p>
       </div>
       <div class="footer-col">
         <h5>Company</h5>
@@ -912,14 +913,13 @@
       <div class="footer-col">
         <h5>Get in touch</h5>
         <ul>
-          <li><a href="mailto:hello@clearfactor.co.uk">hello@clearfactor.co.uk</a></li>
-          <li><a href="tel:+441410000000">0141 000 0000</a></li>
+          <li><a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
       <span>&copy; 2026 ClearFactor. Property factors, Scotland.</span>
-      <span>Registration with the Scottish Property Factor Register to be confirmed.</span>
+      <span>Registered with the Scottish Property Factor Register. Registration number PF000342.</span>
     </div>
   </div>
 </footer>
