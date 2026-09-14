@@ -1,0 +1,959 @@
+<title>ClearFactor</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --ground: #ffffff;
+    --surface: #f3f6fa;
+    --surface-2: #e8edf4;
+    --ink: #0f1726;
+    --ink-soft: #4c5567;
+    --ink-faint: #8891a3;
+    --line: #dfe4ec;
+    --navy: #0b1e42;
+    --navy-2: #12295a;
+    --on-navy: #f4f7fb;
+    --on-navy-soft: #aab7d1;
+    --on-navy-line: #26375f;
+    --accent: #1c86c9;
+    --accent-strong: #0f6aa6;
+    --accent-tint: #e7f2fa;
+    --focus: #1c86c9;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #0a0e17;
+      --surface: #121826;
+      --surface-2: #182033;
+      --ink: #edf0f6;
+      --ink-soft: #a7b0c4;
+      --ink-faint: #67708a;
+      --line: #232c42;
+      --navy: #101c38;
+      --navy-2: #17254a;
+      --on-navy: #f4f7fb;
+      --on-navy-soft: #a7b0c4;
+      --on-navy-line: #2b3a5f;
+      --accent: #4fb0e8;
+      --accent-strong: #7cc5ef;
+      --accent-tint: #142a3c;
+      --focus: #4fb0e8;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #0a0e17;
+    --surface: #121826;
+    --surface-2: #182033;
+    --ink: #edf0f6;
+    --ink-soft: #a7b0c4;
+    --ink-faint: #67708a;
+    --line: #232c42;
+    --navy: #101c38;
+    --navy-2: #17254a;
+    --on-navy: #f4f7fb;
+    --on-navy-soft: #a7b0c4;
+    --on-navy-line: #2b3a5f;
+    --accent: #4fb0e8;
+    --accent-strong: #7cc5ef;
+    --accent-tint: #142a3c;
+    --focus: #4fb0e8;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: "Public Sans", ui-sans-serif, system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: "Manrope", ui-sans-serif, system-ui, sans-serif;
+    font-weight: 700;
+    line-height: 1.14;
+    text-wrap: balance;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  p { margin: 0; }
+  a { color: inherit; }
+  ul { margin: 0; padding: 0; list-style: none; }
+
+  :focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+  .wrap { max-width: 1140px; margin: 0 auto; padding-inline: 28px; }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .on-navy .eyebrow { color: #6fc3f0; }
+
+  [hidden] { display: none !important; }
+
+  /* ---------- LOGO MARK ---------- */
+  .mark { display: block; border-radius: 22%; object-fit: contain; }
+
+  /* ---------- NAV ---------- */
+  header.nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--ground) 90%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding-block: 14px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+  .brand .mark { width: 34px; height: 34px; }
+  .brand span {
+    font-family: "Manrope", sans-serif;
+    font-weight: 800;
+    font-size: 19px;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+  }
+
+  nav.links { display: flex; align-items: center; gap: 6px; }
+  nav.links a.navlink {
+    text-decoration: none;
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: color 0.15s ease, background 0.15s ease;
+  }
+  nav.links a.navlink:hover { color: var(--ink); background: var(--surface); }
+  nav.links a.navlink[aria-current="page"] { color: var(--accent-strong); background: var(--accent-tint); }
+
+  .nav-actions { display: flex; align-items: center; gap: 10px; }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border-radius: 7px;
+    font-size: 14.5px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 10px 18px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+    font-family: inherit;
+  }
+  .btn:active { transform: translateY(1px); }
+  .btn-navy { background: var(--navy); color: var(--on-navy); }
+  .btn-navy:hover { background: var(--navy-2); }
+  .btn-accent { background: var(--accent); color: #06131c; }
+  .btn-accent:hover { background: var(--accent-strong); color: #fff; }
+  .btn-ghost { border-color: var(--line); color: var(--ink); background: transparent; }
+  .btn-ghost:hover { border-color: var(--ink-faint); }
+  .btn-on-navy { background: var(--on-navy); color: var(--navy); }
+  .btn-on-navy:hover { background: #d8e0f0; }
+  .btn-outline-on-navy { border-color: var(--on-navy-line); color: var(--on-navy); }
+  .btn-outline-on-navy:hover { border-color: var(--on-navy-soft); }
+  .btn-sm { padding: 8px 14px; font-size: 13.5px; }
+
+  .menu-toggle {
+    display: none;
+    background: none;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    width: 38px; height: 38px;
+    align-items: center; justify-content: center;
+    cursor: pointer;
+    color: var(--ink);
+  }
+  .menu-toggle svg { width: 18px; height: 18px; }
+
+  @media (max-width: 920px) {
+    nav.links { display: none; }
+    .menu-toggle { display: flex; }
+    body.menu-open nav.links.mobile-open {
+      display: flex;
+      position: fixed;
+      inset: 61px 0 0 0;
+      background: var(--ground);
+      flex-direction: column;
+      align-items: stretch;
+      padding: 18px 22px;
+      gap: 4px;
+      overflow-y: auto;
+      z-index: 49;
+    }
+    body.menu-open nav.links.mobile-open a.navlink { padding: 14px 8px; font-size: 16px; border-bottom: 1px solid var(--line); border-radius: 0; }
+    .nav-actions .btn span.long { display: none; }
+  }
+
+  /* ---------- PAGE / SECTION SCAFFOLDING ---------- */
+  .page { }
+  section { padding-block: 68px; }
+  section.tight { padding-block: 44px; }
+  .band { background: var(--navy); color: var(--on-navy); }
+  .band h2, .band h3 { color: var(--on-navy); }
+  .band p { color: var(--on-navy-soft); }
+  .divider { border-bottom: 1px solid var(--line); }
+  .band + .band { border-top: 1px solid var(--on-navy-line); }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    gap: 36px;
+    margin-bottom: 44px;
+    align-items: end;
+  }
+  .section-head h2 { font-size: clamp(26px, 3.4vw, 34px); }
+  .section-head .lede { color: var(--ink-soft); font-size: 16px; max-width: 50ch; }
+  .band .section-head .lede { color: var(--on-navy-soft); }
+  @media (max-width: 720px) { .section-head { grid-template-columns: 1fr; gap: 14px; } }
+
+  /* ---------- HERO ---------- */
+  .hero { background: var(--navy); color: var(--on-navy); position: relative; overflow: hidden; }
+  .hero-top { position: relative; z-index: 2; padding-block: 76px 0; }
+  .hero h1 { font-size: clamp(36px, 5.4vw, 58px); color: var(--on-navy); max-width: 15ch; }
+  .hero-lede { max-width: 56ch; font-size: 17.5px; color: var(--on-navy-soft); margin-top: 20px; }
+  .hero-cta { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+
+  .skyline-wrap { position: relative; z-index: 1; margin-top: 54px; }
+  .skyline-wrap svg { display: block; width: 100%; height: auto; }
+
+  .stat-strip {
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+  }
+  .stat {
+    padding: 26px 22px;
+    border-right: 1px solid var(--line);
+  }
+  .stat:last-child { border-right: none; }
+  .stat .num { font-family: "Manrope", sans-serif; font-weight: 800; font-size: 22px; color: var(--ink); }
+  .stat .lbl { font-size: 13.5px; color: var(--ink-soft); margin-top: 4px; }
+  .pulse-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); margin-right: 7px; position: relative; top: -1px;
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) { .pulse-dot { animation: none; } }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  @media (max-width: 800px) {
+    .stat-row { grid-template-columns: repeat(2, 1fr); }
+    .stat:nth-child(2) { border-right: none; }
+    .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid var(--line); }
+  }
+
+  /* ---------- HUB CARDS (Home teasers) ---------- */
+  .hub-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .hub-card {
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 26px;
+    text-decoration: none;
+    color: var(--ink);
+    display: grid;
+    gap: 10px;
+    align-content: start;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .hub-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .hub-card .num { font-family: "IBM Plex Mono", monospace; font-size: 12px; color: var(--accent); }
+  .hub-card h3 { font-size: 18px; }
+  .hub-card p { color: var(--ink-soft); font-size: 14.5px; }
+  .hub-card .go { font-size: 13.5px; font-weight: 700; color: var(--accent-strong); margin-top: 4px; }
+  @media (max-width: 860px) { .hub-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .hub-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- ABOUT ---------- */
+  .diff-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .diff-card { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 26px 22px; display: grid; gap: 10px; }
+  .diff-card .glyph { width: 32px; height: 32px; color: var(--accent); }
+  .diff-card h3 { font-size: 15.5px; font-weight: 700; }
+  .diff-card p { font-size: 14px; color: var(--ink-soft); }
+  @media (max-width: 860px) { .diff-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .diff-grid { grid-template-columns: 1fr; } }
+
+  .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .team-card { display: grid; gap: 10px; }
+  .avatar {
+    aspect-ratio: 1; border-radius: 10px; background: var(--surface-2);
+    border: 1px solid var(--line);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-faint);
+  }
+  .avatar svg { width: 34%; height: 34%; }
+  .team-card h4 { font-size: 15px; font-weight: 700; }
+  .team-card .role { font-size: 13px; color: var(--ink-soft); }
+  @media (max-width: 760px) { .team-grid { grid-template-columns: 1fr 1fr; } }
+
+  .csr-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .csr-card { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 24px; display: grid; gap: 8px; }
+  .csr-card h3 { font-size: 16px; }
+  .csr-card p { font-size: 14.5px; color: var(--ink-soft); }
+  @media (max-width: 760px) { .csr-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- SERVICES ---------- */
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .service-card { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 30px 26px; display: flex; flex-direction: column; gap: 12px; min-height: 200px; }
+  .service-card .glyph { width: 28px; height: 28px; color: var(--accent); }
+  .service-card h3 { font-size: 17px; font-weight: 700; }
+  .service-card p { color: var(--ink-soft); font-size: 14.5px; }
+  .service-card .tag {
+    margin-top: auto; align-self: start;
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase;
+    color: var(--accent-strong); background: var(--accent-tint); padding: 4px 8px; border-radius: 4px;
+  }
+  @media (max-width: 900px) { .services-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .services-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- ACCORDIONS (Support / Payment) ---------- */
+  .accordion { border-top: 1px solid var(--line); }
+  details.acc-item { border-bottom: 1px solid var(--line); }
+  details.acc-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 22px 4px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    font-family: "Manrope", sans-serif; font-weight: 700; font-size: 16.5px;
+  }
+  details.acc-item summary::-webkit-details-marker { display: none; }
+  details.acc-item summary .chev { color: var(--accent); transition: transform 0.18s ease; flex-shrink: 0; }
+  details.acc-item[open] summary .chev { transform: rotate(45deg); }
+  .acc-body { padding: 0 4px 24px; color: var(--ink-soft); font-size: 15px; max-width: 68ch; display: grid; gap: 10px; }
+  .acc-body strong { color: var(--ink); }
+
+  /* ---------- CONTACT ---------- */
+  .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; }
+  .contact-info { display: grid; gap: 22px; align-content: start; }
+  .office-card { border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
+  .office-card h4 { font-size: 15px; }
+  .office-card p { font-size: 14px; color: var(--ink-soft); margin-top: 4px; }
+  .contact-detail dt { font-family: "IBM Plex Mono", monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+  .contact-detail dd { margin: 4px 0 0; font-size: 15.5px; }
+  .contact-detail a { text-decoration: none; border-bottom: 1px solid var(--line); }
+  .contact-detail a:hover { border-color: var(--accent); color: var(--accent-strong); }
+
+  form.contact-form { display: grid; gap: 16px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .field { display: grid; gap: 6px; }
+  .field label { font-size: 12.5px; letter-spacing: 0.03em; color: var(--ink-soft); font-weight: 600; }
+  .field input, .field select, .field textarea {
+    font: inherit; font-size: 15px; padding: 11px 13px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 7px; color: var(--ink);
+  }
+  .field textarea { resize: vertical; min-height: 96px; font-family: "Public Sans", sans-serif; }
+  @media (max-width: 640px) { .contact-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } }
+
+  /* ---------- PAYMENT ---------- */
+  .pay-methods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .pay-method { border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 8px; }
+  .pay-method .glyph { width: 24px; height: 24px; color: var(--accent); }
+  .pay-method h4 { font-size: 14.5px; }
+  .pay-method p { font-size: 13px; color: var(--ink-soft); }
+  @media (max-width: 860px) { .pay-methods { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 500px) { .pay-methods { grid-template-columns: 1fr; } }
+
+  /* ---------- PORTAL ---------- */
+  .portal-hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
+  .portal-panel { border: 1px solid var(--on-navy-line); border-radius: 12px; padding: 28px; background: color-mix(in srgb, var(--on-navy) 6%, transparent); }
+  .portal-panel .login-row { display: grid; gap: 12px; margin-top: 18px; }
+  .portal-list { display: grid; gap: 14px; margin-top: 26px; }
+  .portal-list li { display: flex; gap: 12px; }
+  .portal-list .glyph { width: 20px; height: 20px; color: #6fc3f0; flex-shrink: 0; margin-top: 2px; }
+  .portal-list span { color: var(--on-navy-soft); font-size: 15px; }
+  .portal-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.04em;
+    color: var(--on-navy-soft); border: 1px solid var(--on-navy-line); padding: 6px 10px; border-radius: 20px; margin-top: 18px;
+  }
+  @media (max-width: 800px) { .portal-hero { grid-template-columns: 1fr; } }
+
+  /* ---------- FOOTER ---------- */
+  footer.band { padding-block: 44px 30px; }
+  .footer-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 30px; border-bottom: 1px solid var(--on-navy-line); }
+  .footer-brand { display: flex; align-items: center; gap: 10px; text-decoration: none; margin-bottom: 12px; }
+  .footer-brand .mark { width: 28px; height: 28px; }
+  .footer-brand span { font-family: "Manrope", sans-serif; font-weight: 800; font-size: 17px; color: var(--on-navy); }
+  .footer-grid p.desc { color: var(--on-navy-soft); font-size: 14px; max-width: 32ch; }
+  .footer-col h5 { font-family: "IBM Plex Mono", monospace; font-size: 11.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--on-navy-soft); margin-bottom: 14px; }
+  .footer-col ul { display: grid; gap: 10px; }
+  .footer-col a { text-decoration: none; color: var(--on-navy-soft); font-size: 14px; }
+  .footer-col a:hover { color: var(--on-navy); }
+  .footer-bottom { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; padding-top: 22px; font-size: 13px; color: var(--on-navy-soft); }
+  @media (max-width: 760px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<header class="nav">
+  <div class="wrap nav-row">
+    <a class="brand" href="#home">
+      <img class="mark" src="/_blob/f16b148673e03bd0450fb6a1ff63f741" width="34" height="34" alt="ClearFactor">
+      <span>ClearFactor</span>
+    </a>
+    <nav class="links" id="primaryNav">
+      <a class="navlink" data-page="home" href="#home">Home</a>
+      <a class="navlink" data-page="about" href="#about">About Us</a>
+      <a class="navlink" data-page="services" href="#services">Services</a>
+      <a class="navlink" data-page="support" href="#support">Support</a>
+      <a class="navlink" data-page="payment" href="#payment">Payment</a>
+      <a class="navlink" data-page="contact" href="#contact">Contact</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-accent btn-sm" href="#portal"><span class="long">My</span> ClearFactor</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HOME ============ -->
+  <div class="page" id="home">
+    <section class="hero" style="padding-bottom:0;">
+      <div class="wrap hero-top">
+        <p class="eyebrow">Property factoring &middot; Scotland</p>
+        <h1 style="margin-top:14px;">Factoring, made clear.</h1>
+        <p class="hero-lede">ClearFactor delivers transparent, proactive property factoring for homeowners, residents' associations and developers across Scotland. AI sits at the core of how we operate, so queries get answered and jobs get logged fast &mdash; 24 hours a day, 365 days a year.</p>
+        <div class="hero-cta">
+          <a class="btn btn-on-navy" href="#contact">Get a quote</a>
+          <a class="btn btn-outline-on-navy" href="#services">Explore services</a>
+        </div>
+      </div>
+      <div class="skyline-wrap">
+        <svg viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <g fill="none" stroke="var(--on-navy-line)" stroke-width="1.5">
+            <!-- Glasgow-style tenement terrace, left -->
+            <path d="M0 220 V150 H40 V130 H80 V150 H120 V150 H160 V150 H200 V150 H240 V220" />
+            <path d="M20 150 V125 M60 150 V125 M100 150 V125 M140 150 V125 M180 150 V125" />
+            <circle cx="20" cy="118" r="5" />
+            <circle cx="100" cy="118" r="5" />
+            <circle cx="180" cy="118" r="5" />
+            <!-- crane, mid-left -->
+            <path d="M300 220 V90 M300 90 H400 M300 105 L330 90 M370 90 V130 M370 130 H345 M370 130 H395" />
+            <!-- Edinburgh castle-ish rampart, centre -->
+            <path d="M470 220 V110 H495 V95 H520 V110 H545 V95 H570 V110 H595 V95 H620 V110 H645 V220" />
+            <path d="M545 110 V70 H565 V110" />
+            <path d="M545 70 L555 55 L565 70" />
+            <!-- office block, right of centre -->
+            <path d="M720 220 V60 H840 V220" />
+            <path d="M735 75 H745 M760 75 H770 M785 75 H795 M810 75 H820 M735 100 H745 M760 100 H770 M785 100 H795 M810 100 H820 M735 125 H745 M760 125 H770 M785 125 H795 M810 125 H820 M735 150 H745 M760 150 H770 M785 150 H795 M810 150 H820" />
+            <!-- tenement terrace, right -->
+            <path d="M900 220 V145 H940 V125 H980 V145 H1020 V145 H1060 V145 H1100 V145 H1140 V145 H1180 V145 H1200 V220" />
+            <path d="M920 145 V120 M960 145 V120 M1040 145 V120 M1080 145 V120 M1160 145 V120" />
+            <circle cx="920" cy="113" r="5" />
+            <circle cx="1040" cy="113" r="5" />
+            <circle cx="1160" cy="113" r="5" />
+          </g>
+        </svg>
+      </div>
+    </section>
+
+    <section class="stat-strip tight" style="padding-block:0;">
+      <div class="wrap" style="padding:0;">
+        <div class="stat-row">
+          <div class="stat"><div class="num"><span class="pulse-dot" aria-hidden="true"></span>24/7</div><div class="lbl">AI-assisted response, every day of the year</div></div>
+          <div class="stat"><div class="num">100%</div><div class="lbl">Itemised invoicing, no bundled charges</div></div>
+          <div class="stat"><div class="num">&pound;0</div><div class="lbl">Contractor mark-up on common repairs</div></div>
+          <div class="stat"><div class="num">Scotland</div><div class="lbl">Homeowners, RAs &amp; developers, nationwide</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Everything, in one place</h2>
+          <p class="lede">Find your way around &mdash; from what a factor does, to logging a repair, to paying your account.</p>
+        </div>
+        <div class="hub-grid">
+          <a class="hub-card" href="#about"><span class="num">01</span><h3>About Us</h3><p>What makes us different, the team behind ClearFactor, and how we give back.</p><span class="go">Read more &rarr;</span></a>
+          <a class="hub-card" href="#services"><span class="num">02</span><h3>Services</h3><p>Repairs, cleaning, insurance, accounts and emergency response, all under one roof.</p><span class="go">See services &rarr;</span></a>
+          <a class="hub-card" href="#support"><span class="num">03</span><h3>Customer Support</h3><p>Debt recovery, homeowner guides, emergency contacts and insurance claims.</p><span class="go">Get support &rarr;</span></a>
+          <a class="hub-card" href="#payment"><span class="num">04</span><h3>Make a Payment</h3><p>Ways to pay your account and how float and arrears are handled.</p><span class="go">View payment options &rarr;</span></a>
+          <a class="hub-card" href="#portal"><span class="num">05</span><h3>My ClearFactor</h3><p>Your portal, powered by AskPorter &mdash; track jobs and message your property manager.</p><span class="go">Open the portal &rarr;</span></a>
+          <a class="hub-card" href="#contact"><span class="num">06</span><h3>Contact Us</h3><p>Get a quote, reach your property manager, or find our offices.</p><span class="go">Get in touch &rarr;</span></a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ ABOUT ============ -->
+  <div class="page" id="about" hidden>
+    <section class="tight" style="padding-top:52px;">
+      <div class="wrap">
+        <p class="eyebrow">About Us</p>
+        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:16ch;">A factor built around the owner, not the other way round.</h1>
+        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:60ch;">ClearFactor was founded to fix what owners dislike most about factoring: vague invoices, slow replies, and no idea what's actually being spent. We combine local Scottish property expertise with AI-assisted operations to stay responsive at a scale most factors can't match.</p>
+      </div>
+    </section>
+
+    <section class="divider">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>What makes us different</h2>
+          <p class="lede">Four commitments that shape every decision we make on your building's behalf.</p>
+        </div>
+        <div class="diff-grid">
+          <div class="diff-card">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M8 12h8M8 16h5"></path></svg>
+            <h3>Transparent pricing</h3>
+            <p>One management fee, agreed up front. Contractor invoices pass through at cost, every time.</p>
+          </div>
+          <div class="diff-card">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"></path><circle cx="12" cy="12" r="3"></circle></svg>
+            <h3>AI-assisted response</h3>
+            <p>Routine queries and job logging are handled instantly, day or night &mdash; complex cases still reach a person.</p>
+          </div>
+          <div class="diff-card">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"></path></svg>
+            <h3>Local expertise</h3>
+            <p>We know tenement closes, sandstone repair and Scottish title conditions &mdash; not just spreadsheets.</p>
+          </div>
+          <div class="diff-card">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.6-9.5-9.1C.8 8.4 2.4 5 6 5c2 0 3.4 1.1 4 2.3C10.6 6.1 12 5 14 5c3.6 0 5.2 3.4 3.5 6.9C19 16.4 12 21 12 21z"></path></svg>
+            <h3>A dedicated portal</h3>
+            <p>Every owner sees live job status through My ClearFactor &mdash; not just a call once a year.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="divider">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Our team</h2>
+          <p class="lede">Profiles are being added as ClearFactor grows &mdash; check back soon to meet the people managing your building.</p>
+        </div>
+        <div class="team-grid">
+          <div class="team-card">
+            <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg></div>
+            <h4>Operations Lead</h4>
+            <p class="role">Profile coming soon</p>
+          </div>
+          <div class="team-card">
+            <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg></div>
+            <h4>Property Manager</h4>
+            <p class="role">Profile coming soon</p>
+          </div>
+          <div class="team-card">
+            <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg></div>
+            <h4>Customer Support</h4>
+            <p class="role">Profile coming soon</p>
+          </div>
+          <div class="team-card">
+            <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg></div>
+            <h4>Accounts</h4>
+            <p class="role">Profile coming soon</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="divider" style="padding-bottom:76px;">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>CSR</h2>
+          <p class="lede">Our commitments as we grow &mdash; to the buildings we manage and the communities around them.</p>
+        </div>
+        <div class="csr-grid">
+          <div class="csr-card">
+            <h3>Local contractors first</h3>
+            <p>We prioritise vetted, local tradespeople for common repairs &mdash; keeping spend in the communities we serve.</p>
+          </div>
+          <div class="csr-card">
+            <h3>Sustainable maintenance</h3>
+            <p>Where options are comparable in cost, we favour materials and methods with a lower environmental impact.</p>
+          </div>
+          <div class="csr-card">
+            <h3>Paperless by default</h3>
+            <p>Statements, notices and invoices are delivered digitally through My ClearFactor to cut unnecessary waste.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ SERVICES ============ -->
+  <div class="page" id="services" hidden>
+    <section class="tight" style="padding-top:52px;">
+      <div class="wrap">
+        <p class="eyebrow">Services</p>
+        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:14ch;">Everything your building needs, under one factor.</h1>
+        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:58ch;">Each service is instructed, recorded and billed the same way: scoped before it's ordered, itemised after it's done.</p>
+      </div>
+    </section>
+    <section class="divider" style="padding-top:0;">
+      <div class="wrap" style="padding:0;">
+        <div class="services-grid">
+          <div class="service-card">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12l9-8 9 8M5 10v10h14V10"></path></svg>
+            <h3>Common repairs</h3>
+            <p>Roofs, gutters, render, close lighting and stairwells &mdash; scoped, quoted and instructed to vetted contractors.</p>
+            <span class="tag">Pre-approved above &pound;500</span>
+          </div>
+          <div class="service-card">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20l4-10 4 6 3-4 5 8H4z"></path></svg>
+            <h3>Cleaning &amp; grounds</h3>
+            <p>Close cleaning, backcourt and garden maintenance, bin store upkeep, on a schedule owners agree in advance.</p>
+            <span class="tag">Scheduled</span>
+          </div>
+          <div class="service-card">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V6l8-3z"></path></svg>
+            <h3>Buildings insurance</h3>
+            <p>Block policy placed and reviewed annually, with claims handled on the owners' behalf after storm or water damage.</p>
+            <span class="tag">Reviewed annually</span>
+          </div>
+          <div class="service-card">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 10h18M7 15h4"></path></svg>
+            <h3>Float &amp; accounts</h3>
+            <p>A working float sized to the building, reconciled accounts, and a statement any owner can request at any time.</p>
+            <span class="tag">Held as client funds</span>
+          </div>
+          <div class="service-card">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"></path></svg>
+            <h3>Emergency response</h3>
+            <p>A round-the-clock line for anything that can't wait &mdash; burst pipes, storm damage, a close door that won't lock.</p>
+            <span class="tag">24/7 &middot; AI-triaged</span>
+          </div>
+          <div class="service-card">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <h3>Owner communication</h3>
+            <p>Notice of works before they're instructed, and a plain-English summary after &mdash; through the portal or by email.</p>
+            <span class="tag">Via My ClearFactor</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ SUPPORT ============ -->
+  <div class="page" id="support" hidden>
+    <section class="tight" style="padding-top:52px;">
+      <div class="wrap">
+        <p class="eyebrow">Customer Support</p>
+        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:15ch;">Answers, before you have to ask twice.</h1>
+        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:58ch;">The most common reasons owners get in touch, answered up front.</p>
+      </div>
+    </section>
+    <section class="divider" style="padding-top:0;">
+      <div class="wrap">
+        <div class="accordion">
+          <details class="acc-item" open>
+            <summary>Debt Recovery
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>If an owner's account falls into arrears, we follow a fixed process: a friendly reminder, a formal notice, then &mdash; only if needed &mdash; referral for recovery. Interest and reasonable recovery costs may be added at that final stage.</p>
+              <p><strong>Struggling to pay?</strong> Contact us before a payment is missed. We can usually agree a short-term plan rather than let an account fall behind.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>Homeowner Guides
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Plain-English guides cover the topics owners ask about most: what factoring actually covers, how the float works, how repairs get approved, and what happens when you sell your flat.</p>
+              <p>Guides are published to My ClearFactor as they're written &mdash; request a specific one from your property manager if it isn't there yet.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>Emergency Contacts
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>For anything that puts the building or a resident at immediate risk &mdash; burst pipes, storm damage, a common door that won't secure &mdash; call the 24-hour line. It's triaged instantly and, where needed, a contractor is instructed the same day.</p>
+              <p>Not urgent? Log it through My ClearFactor instead and it's handled in the normal repairs queue.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>Insurance Claims
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Report damage to common property as soon as it's found. We log the claim with the block insurer, arrange any necessary inspection, and keep owners updated until it's settled.</p>
+              <p>Claims on an individual flat's own contents are between the owner and their personal insurer &mdash; we can point you to the block policy documents if needed.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ MAKE A PAYMENT ============ -->
+  <div class="page" id="payment" hidden>
+    <section class="tight" style="padding-top:52px;">
+      <div class="wrap">
+        <p class="eyebrow">Make a Payment</p>
+        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:15ch;">Pay your account, your way.</h1>
+        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:58ch;">Every method reaches the same client account, ring-fenced from ClearFactor's own funds.</p>
+      </div>
+    </section>
+    <section class="divider" style="padding-top:0;">
+      <div class="wrap">
+        <div class="pay-methods">
+          <div class="pay-method">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="6" width="20" height="14" rx="2"></rect><path d="M2 10h20M6 15h4"></path></svg>
+            <h4>Direct debit</h4>
+            <p>Set once, taken automatically each period. The simplest way to stay ahead of arrears.</p>
+          </div>
+          <div class="pay-method">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M15 6l6 6-6 6"></path></svg>
+            <h4>Bank transfer</h4>
+            <p>Pay by BACS or online banking using your account reference &mdash; found on every invoice.</p>
+          </div>
+          <div class="pay-method">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 9h18"></path></svg>
+            <h4>Card, online</h4>
+            <p>Pay a single invoice or top up your float by debit or credit card through My ClearFactor.</p>
+          </div>
+          <div class="pay-method">
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+            <h4>Payment plans</h4>
+            <p>If a bill catches you out, get in touch before it's due &mdash; short-term plans are agreed case by case.</p>
+          </div>
+        </div>
+
+        <div class="accordion" style="margin-top:56px;">
+          <details class="acc-item" open>
+            <summary>Ways to pay
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Direct debit is our recommended method &mdash; set it up once through My ClearFactor and never miss a due date. One-off payments can be made by card online, or by bank transfer using the reference on your invoice.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>Payment rules
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Invoices are issued in line with the schedule in your written statement of service, and are due within the period stated on the invoice. The float is topped up when it falls below the level agreed for your building, so routine costs can still be met without delay.</p>
+            </div>
+          </details>
+        </div>
+
+        <div style="margin-top:40px;">
+          <a class="btn btn-navy" href="#portal">Make a payment in My ClearFactor</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ MY CLEARFACTOR (portal) ============ -->
+  <div class="page" id="portal" hidden>
+    <section class="band" style="padding-block:76px;">
+      <div class="wrap portal-hero">
+        <div>
+          <p class="eyebrow">My ClearFactor</p>
+          <h1 style="font-size:clamp(32px,4.6vw,46px); margin-top:12px; max-width:14ch; color:var(--on-navy);">Your building, always in view.</h1>
+          <p style="color:var(--on-navy-soft); font-size:16.5px; margin-top:16px; max-width:52ch;">My ClearFactor is your owner portal, powered by AskPorter. See outstanding jobs, track repairs through to completion, message your property manager and pay your account &mdash; all in one place.</p>
+          <ul class="portal-list">
+            <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>Track every job, from logged to closed</span></li>
+            <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>Message your property manager directly</span></li>
+            <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>View statements and pay your account online</span></li>
+          </ul>
+          <span class="portal-badge">Powered by AskPorter</span>
+        </div>
+        <div class="portal-panel">
+          <p class="eyebrow">Sign in</p>
+          <h3 style="margin-top:10px; color:var(--on-navy); font-size:20px;">Landlords &amp; homeowners</h3>
+          <p style="color:var(--on-navy-soft); font-size:14.5px; margin-top:6px;">Access your dashboard, jobs and statements.</p>
+          <div class="login-row">
+            <a class="btn btn-on-navy" href="#" rel="noopener">Log in to My ClearFactor</a>
+            <a class="btn btn-outline-on-navy btn-sm" href="#contact">Need an invite? Contact us</a>
+          </div>
+          <div style="height:1px; background:var(--on-navy-line); margin:22px 0;"></div>
+          <h3 style="color:var(--on-navy); font-size:20px;">Tenants</h3>
+          <p style="color:var(--on-navy-soft); font-size:14.5px; margin-top:6px;">Report an issue with the common parts of your building.</p>
+          <div class="login-row">
+            <a class="btn btn-outline-on-navy" href="#" rel="noopener">Report an issue</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ CONTACT ============ -->
+  <div class="page" id="contact" hidden>
+    <section class="tight" style="padding-top:52px;">
+      <div class="wrap">
+        <p class="eyebrow">Contact Us</p>
+        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:14ch;">Talk to us about your building.</h1>
+        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:56ch;">Appointing a factor for the first time, or moving on from one? Send the details and we'll come back with a written quote.</p>
+      </div>
+    </section>
+    <section class="divider" style="padding-top:0;">
+      <div class="wrap contact-grid">
+        <div class="contact-info">
+          <dl class="contact-detail">
+            <dt>Email</dt>
+            <dd><a href="mailto:hello@clearfactor.co.uk">hello@clearfactor.co.uk</a></dd>
+          </dl>
+          <dl class="contact-detail">
+            <dt>Phone</dt>
+            <dd><a href="tel:+441410000000">0141 000 0000</a></dd>
+          </dl>
+          <dl class="contact-detail">
+            <dt>Emergency line</dt>
+            <dd>Available 24 hours to instructed clients</dd>
+          </dl>
+          <div style="display:grid; gap:14px; margin-top:8px;">
+            <div class="office-card">
+              <h4>Glasgow office</h4>
+              <p>Address to be confirmed</p>
+            </div>
+            <div class="office-card">
+              <h4>Edinburgh office</h4>
+              <p>Address to be confirmed</p>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" action="mailto:hello@clearfactor.co.uk" method="post" enctype="text/plain">
+          <div class="form-row">
+            <div class="field">
+              <label for="cf-name">Name</label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="cf-email">Email</label>
+              <input id="cf-email" name="email" type="email" autocomplete="email" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="cf-role">I am a</label>
+              <select id="cf-role" name="role">
+                <option>Homeowner</option>
+                <option>Residents' association</option>
+                <option>Developer</option>
+                <option>Tenant</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="cf-flats">Number of flats</label>
+              <input id="cf-flats" name="flats" type="number" min="1" inputmode="numeric">
+            </div>
+          </div>
+          <div class="field">
+            <label for="cf-address">Property address</label>
+            <input id="cf-address" name="address" type="text" autocomplete="street-address">
+          </div>
+          <div class="field">
+            <label for="cf-message">What's prompting the enquiry?</label>
+            <textarea id="cf-message" name="message" placeholder="e.g. current factor is retiring, self-managed and want support, roof repair needed..."></textarea>
+          </div>
+          <button class="btn btn-navy" type="submit" style="justify-self:start; margin-top:4px;">Send enquiry</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<footer class="band">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="footer-brand" href="#home">
+          <img class="mark" src="/_blob/4d54be390c6d55901b8364d76cade4ee" width="28" height="28" alt="ClearFactor">
+          <span>ClearFactor</span>
+        </a>
+        <p class="desc">Transparent, AI-assisted property factoring for homeowners, residents' associations and developers across Scotland.</p>
+      </div>
+      <div class="footer-col">
+        <h5>Company</h5>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Owners</h5>
+        <ul>
+          <li><a href="#support">Support</a></li>
+          <li><a href="#payment">Make a payment</a></li>
+          <li><a href="#portal">My ClearFactor</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h5>Get in touch</h5>
+        <ul>
+          <li><a href="mailto:hello@clearfactor.co.uk">hello@clearfactor.co.uk</a></li>
+          <li><a href="tel:+441410000000">0141 000 0000</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 ClearFactor. Property factors, Scotland.</span>
+      <span>Registration with the Scottish Property Factor Register to be confirmed.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var pages = Array.prototype.slice.call(document.querySelectorAll('.page'));
+    var navLinks = Array.prototype.slice.call(document.querySelectorAll('a.navlink'));
+    var validIds = pages.map(function (p) { return p.id; });
+
+    function showPage(hash) {
+      var id = (hash || '').replace('#', '');
+      if (validIds.indexOf(id) === -1) id = 'home';
+      pages.forEach(function (p) { p.hidden = p.id !== id; });
+      navLinks.forEach(function (a) {
+        a.setAttribute('aria-current', a.dataset.page === id ? 'page' : 'false');
+      });
+      document.body.classList.remove('menu-open');
+      var toggle = document.getElementById('menuToggle');
+      if (toggle) toggle.setAttribute('aria-expanded', 'false');
+      window.scrollTo(0, 0);
+    }
+
+    window.addEventListener('hashchange', function () { showPage(location.hash); });
+    showPage(location.hash);
+
+    var nav = document.getElementById('primaryNav');
+    var toggle = document.getElementById('menuToggle');
+    if (toggle && nav) {
+      nav.classList.add('mobile-open');
+      toggle.addEventListener('click', function () {
+        var open = document.body.classList.toggle('menu-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+    }
+  })();
+</script>
