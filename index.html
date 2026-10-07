@@ -1,4 +1,10 @@
-<title>ClearFactor</title>
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ClearFactor | Property factors in Scotland</title>
+<meta name="description" content="ClearFactor is a Scottish property factor that answers your messages, publishes its fees and looks after your building properly. Get a quote or find out how to switch.">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
@@ -194,7 +200,7 @@
   }
   .menu-toggle svg { width: 18px; height: 18px; }
 
-  @media (max-width: 920px) {
+  @media (max-width: 1080px) {
     nav.links { display: none; }
     .menu-toggle { display: flex; }
     body.menu-open nav.links.mobile-open {
@@ -455,7 +461,79 @@
   @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
 
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+  /* ---------- COMPARISON TABLE ---------- */
+  .compare { border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  .compare-row { display: grid; grid-template-columns: 0.8fr 1fr 1fr; border-top: 1px solid var(--line); }
+  .compare-row:first-child { border-top: none; }
+  .compare-row > div { padding: 18px 22px; font-size: 15px; }
+  .compare-row .topic { font-family: "Manrope", sans-serif; font-weight: 700; color: var(--ink); }
+  .compare-row .them { color: var(--ink-soft); background: var(--surface); }
+  .compare-row .us { color: var(--ink); }
+  .compare-head > div { font-family: "Public Sans", sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.07em; text-transform: uppercase; padding-block: 14px; }
+  .compare-head .them { color: var(--ink-faint); }
+  .compare-head .us { color: var(--accent-strong); background: var(--accent-tint); }
+  @media (max-width: 720px) {
+    .compare-row { grid-template-columns: 1fr; }
+    .compare-row > div { padding: 12px 18px; }
+    .compare-row .topic { padding-top: 18px; }
+    .compare-head { display: none; }
+    .compare-row .them::before { content: "The usual way: "; font-weight: 700; color: var(--ink-faint); }
+    .compare-row .us::before { content: "ClearFactor: "; font-weight: 700; color: var(--accent-strong); }
+  }
+
+  /* ---------- FEE TABLE ---------- */
+  .fee-table { border-top: 1px solid var(--line); }
+  .fee-row { display: grid; grid-template-columns: 1fr 0.9fr 1.3fr; gap: 24px; padding: 22px 4px; border-bottom: 1px solid var(--line); align-items: start; }
+  .fee-row h3 { font-size: 16.5px; }
+  .fee-row .amount { font-family: "Manrope", sans-serif; font-weight: 800; font-size: 17px; color: var(--accent-strong); }
+  .fee-row p { color: var(--ink-soft); font-size: 14.5px; }
+  .fee-note { margin-top: 28px; padding: 20px 22px; border-radius: 10px; background: var(--surface); border: 1px solid var(--line); color: var(--ink-soft); font-size: 15px; max-width: 76ch; }
+  .fee-note strong { color: var(--ink); }
+  @media (max-width: 760px) { .fee-row { grid-template-columns: 1fr; gap: 6px; } }
+
+  /* ---------- STEPS ---------- */
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; counter-reset: step; }
+  .step { border: 1px solid var(--line); border-radius: 12px; padding: 24px 22px; display: grid; gap: 10px; align-content: start; }
+  .step::before {
+    counter-increment: step; content: counter(step);
+    width: 32px; height: 32px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: var(--accent-tint); color: var(--accent-strong);
+    font-family: "Manrope", sans-serif; font-weight: 800; font-size: 15px;
+  }
+  .step h3 { font-size: 16.5px; }
+  .step p { color: var(--ink-soft); font-size: 14.5px; }
+  @media (max-width: 900px) { .steps { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
+
+  /* ---------- INCLUDED / EXTRA ---------- */
+  .include-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .include-col { border: 1px solid var(--line); border-radius: 12px; padding: 26px; }
+  .include-col h3 { font-size: 17px; margin-bottom: 14px; }
+  .include-col ul { display: grid; gap: 10px; }
+  .include-col li { display: flex; gap: 10px; font-size: 15px; color: var(--ink-soft); }
+  .include-col li svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 3px; color: var(--accent); }
+  .include-col.extra li svg { color: var(--ink-faint); }
+  @media (max-width: 760px) { .include-grid { grid-template-columns: 1fr; } }
+
+  /* ---------- FAQ GROUPS ---------- */
+  .faq-group + .faq-group { margin-top: 48px; }
+  .faq-group > h2 { font-size: 21px; margin-bottom: 14px; }
+  .acc-body a { color: var(--accent-strong); }
+
+  /* ---------- SWITCH BAND ---------- */
+  .switch-band { display: grid; grid-template-columns: 1.3fr 0.7fr; gap: 40px; align-items: center; }
+  .switch-band h2 { font-size: clamp(26px, 3.4vw, 34px); }
+  .switch-band p { margin-top: 14px; max-width: 58ch; font-size: 16px; }
+  .switch-band .hero-cta { justify-content: flex-end; margin-top: 0; }
+  @media (max-width: 760px) { .switch-band { grid-template-columns: 1fr; } .switch-band .hero-cta { justify-content: flex-start; } }
+
+  .page-intro h1 { font-size: clamp(32px, 4.6vw, 48px); margin-top: 12px; }
+  .page-intro p.intro { color: var(--ink-soft); font-size: 17px; margin-top: 18px; max-width: 60ch; }
 </style>
+</head>
+<body>
 
 <header class="nav">
   <div class="wrap nav-row">
@@ -465,10 +543,12 @@
     </a>
     <nav class="links" id="primaryNav">
       <a class="navlink" data-page="home" href="#home">Home</a>
-      <a class="navlink" data-page="about" href="#about">About Us</a>
+      <a class="navlink" data-page="about" href="#about">About</a>
       <a class="navlink" data-page="services" href="#services">Services</a>
-      <a class="navlink" data-page="support" href="#support">Support</a>
-      <a class="navlink" data-page="payment" href="#payment">Payment</a>
+      <a class="navlink" data-page="fees" href="#fees">Our fees</a>
+      <a class="navlink" data-page="switch" href="#switch">Switch to us</a>
+      <a class="navlink" data-page="support" href="#support">Help</a>
+      <a class="navlink" data-page="payment" href="#payment">Pay</a>
       <a class="navlink" data-page="contact" href="#contact">Contact</a>
     </nav>
     <div class="nav-actions">
@@ -495,12 +575,12 @@
       </div>
       <div class="hero-scrim" aria-hidden="true"></div>
       <div class="wrap hero-top">
-        <h1>Factoring, made clear.</h1>
-        <p class="hero-kicker" style="margin-top:22px;">Traditional factoring standards haven't kept up with what owners expect today, and it's time that changed.</p>
-        <p class="hero-lede">At ClearFactor, we provide transparent, proactive property management to homeowners, residents' associations and developers across Scotland. Technology sits behind everything we do, so queries are answered and jobs are logged quickly, any time of day, every day of the year. ClearFactor is built for the way property management should work now.</p>
+        <h1>A factor that actually gets back to you.</h1>
+        <p class="hero-kicker" style="margin-top:22px;">Most owners only hear from their factor when the bill lands. We think that's the wrong way round.</p>
+        <p class="hero-lede">ClearFactor looks after the shared parts of buildings across Scotland: the close, the roof, the garden, the insurance and the accounts that go with it all. You get a property manager who knows your building, every charge written down in plain English, and a portal where you can see what's happening without having to chase anyone.</p>
         <div class="hero-cta">
           <a class="btn btn-on-navy" href="#contact">Get a quote</a>
-          <a class="btn btn-outline-on-navy" href="#services">Explore services</a>
+          <a class="btn btn-outline-on-navy" href="#switch">Thinking of switching?</a>
         </div>
       </div>
     </section>
@@ -508,9 +588,9 @@
     <section class="stat-strip tight" style="padding-block:0;">
       <div class="wrap" style="padding:0;">
         <div class="stat-row">
-          <div class="stat"><div class="num"><span class="pulse-dot" aria-hidden="true"></span>Dedicated team</div><div class="lbl">Our friendly, professional team and your assigned property manager are here for whatever you need, with technology at the core of how we work to keep responses quick and efficient.</div></div>
-          <div class="stat"><div class="num">Clear pricing</div><div class="lbl">Itemised invoicing with no bundled charges, so you always know exactly what you are paying for.</div></div>
-          <div class="stat"><div class="num">Local</div><div class="lbl">Professional, experienced and vetted local contractors for every common repair.</div></div>
+          <div class="stat"><div class="num"><span class="pulse-dot" aria-hidden="true"></span>A real person</div><div class="lbl">Your building has its own property manager. You'll know who they are, and they'll know your close.</div></div>
+          <div class="stat"><div class="num">Every charge shown</div><div class="lbl">Our fees, contractor uplifts and insurance commission are published on this site. Nothing tucked away in the small print.</div></div>
+          <div class="stat"><div class="num">Local trades</div><div class="lbl">Vetted Scottish contractors we'd be happy to have working in our own building.</div></div>
         </div>
       </div>
     </section>
@@ -518,16 +598,74 @@
     <section>
       <div class="wrap">
         <div class="section-head">
-          <h2>Everything, in one place</h2>
-          <p class="lede">Find your way around: from what a factor does, to logging a repair, to paying your account.</p>
+          <h2>Factoring, without the runaround</h2>
+          <p class="lede">Everyone has a factor story. Usually it involves a voicemail nobody returned. Here's how we do things instead.</p>
+        </div>
+        <div class="compare" role="table" aria-label="The usual way compared with ClearFactor">
+          <div class="compare-row compare-head" role="row">
+            <div role="columnheader"></div>
+            <div class="them" role="columnheader">The usual way</div>
+            <div class="us" role="columnheader">ClearFactor</div>
+          </div>
+          <div class="compare-row" role="row">
+            <div class="topic" role="rowheader">Getting hold of someone</div>
+            <div class="them" role="cell">A general inbox, a phone that rings out, and a wait.</div>
+            <div class="us" role="cell">Your property manager by name, and a reply from a person within one working day.</div>
+          </div>
+          <div class="compare-row" role="row">
+            <div class="topic" role="rowheader">Reporting a repair</div>
+            <div class="them" role="cell">Phone during office hours and hope it gets passed on.</div>
+            <div class="us" role="cell">Log it any time in My ClearFactor, then follow it until the job's closed.</div>
+          </div>
+          <div class="compare-row" role="row">
+            <div class="topic" role="rowheader">What you pay</div>
+            <div class="them" role="cell">Set out in a document you may never have been sent.</div>
+            <div class="us" role="cell">Published on this website, and in the Written Statement we send every owner.</div>
+          </div>
+          <div class="compare-row" role="row">
+            <div class="topic" role="rowheader">Insurance commission</div>
+            <div class="them" role="cell">Often not mentioned unless you ask.</div>
+            <div class="us" role="cell">25%, stated up front and printed on your insurance schedule.</div>
+          </div>
+          <div class="compare-row" role="row">
+            <div class="topic" role="rowheader">Bigger repairs</div>
+            <div class="them" role="cell">You find out when the invoice arrives.</div>
+            <div class="us" role="cell">You see the quotes and get a say before anything over the agreed limit goes ahead.</div>
+          </div>
+          <div class="compare-row" role="row">
+            <div class="topic" role="rowheader">Your money</div>
+            <div class="them" role="cell">A float you paid years ago and haven't heard about since.</div>
+            <div class="us" role="cell">Held in a client account, separate from ours, and shown on every statement.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="band">
+      <div class="wrap switch-band">
+        <div>
+          <h2>Fed up with your current factor?</h2>
+          <p>Moving is usually simpler than people expect. We do the legwork: reading your title deeds, helping you get neighbours on board, and taking over cleanly from the outgoing factor.</p>
+        </div>
+        <div class="hero-cta">
+          <a class="btn btn-on-navy" href="#switch">How switching works</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Find what you need</h2>
+          <p class="lede">Whether you're an owner, a residents' association or a developer, start here.</p>
         </div>
         <div class="hub-grid">
-          <a class="hub-card" href="#about"><h3>About Us</h3><p>What makes us different, the team behind ClearFactor, and how we give back.</p><span class="go">Read more &rarr;</span></a>
-          <a class="hub-card" href="#services"><h3>Services</h3><p>Repairs, cleaning, insurance, accounts and emergency response, all under one roof.</p><span class="go">See services &rarr;</span></a>
-          <a class="hub-card" href="#support"><h3>Customer Support</h3><p>Debt recovery, homeowner guides, emergency contacts and insurance claims.</p><span class="go">Get support &rarr;</span></a>
-          <a class="hub-card" href="#payment"><h3>Make a Payment</h3><p>Ways to pay your account and how float and arrears are handled.</p><span class="go">View payment options &rarr;</span></a>
-          <a class="hub-card" href="#portal"><h3>My ClearFactor</h3><p>Your portal, powered by AskPorter. Track jobs and message your property manager.</p><span class="go">Open the portal &rarr;</span></a>
-          <a class="hub-card" href="#contact"><h3>Contact Us</h3><p>Get a quote, reach your property manager, or find our offices.</p><span class="go">Get in touch &rarr;</span></a>
+          <a class="hub-card" href="#services"><h3>What we do</h3><p>Repairs, cleaning, landscaping, insurance, accounts and out-of-hours cover for the parts of the building you all share.</p><span class="go">See services &rarr;</span></a>
+          <a class="hub-card" href="#fees"><h3>Our fees</h3><p>The management fee, contractor uplifts, insurance commission and every other charge, all in one table.</p><span class="go">See our fees &rarr;</span></a>
+          <a class="hub-card" href="#switch"><h3>Switch to us</h3><p>How changing factor works, how many neighbours need to agree, and what we take care of for you.</p><span class="go">How it works &rarr;</span></a>
+          <a class="hub-card" href="#support"><h3>Help and FAQs</h3><p>Emergencies, insurance claims, the float, selling your flat and what to do if something's gone wrong.</p><span class="go">Get answers &rarr;</span></a>
+          <a class="hub-card" href="#payment"><h3>Pay your account</h3><p>Direct debit, bank transfer or card, plus what to do if a bill catches you out.</p><span class="go">Ways to pay &rarr;</span></a>
+          <a class="hub-card" href="#portal"><h3>My ClearFactor</h3><p>Log a repair, follow it through to the finish, message your property manager and see your statements.</p><span class="go">Open the portal &rarr;</span></a>
         </div>
       </div>
     </section>
@@ -535,40 +673,40 @@
 
   <!-- ============ ABOUT ============ -->
   <div class="page" id="about" hidden>
-    <section class="tight" style="padding-top:52px;">
+    <section class="tight page-intro" style="padding-top:52px;">
       <div class="wrap">
-        <p class="eyebrow">About Us</p>
-        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:16ch;">A factor built around the owner.</h1>
-        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:60ch;">ClearFactor was set up to make property factoring straightforward: clear invoices, prompt replies, and a clear record of what's being spent and why. We manage the common parts of your property with the same care we'd want as owners ourselves.</p>
+        <p class="eyebrow">About us</p>
+        <h1 style="max-width:16ch;">Built for owners, not around them.</h1>
+        <p class="intro">ClearFactor is a Scottish property factor run from Glasgow. We look after the common parts of tenements, modern flatted blocks and new-build developments. The idea is simple: answer people, show our workings, and fix things before they turn into big bills.</p>
       </div>
     </section>
 
     <section class="divider">
       <div class="wrap">
         <div class="section-head">
-          <h2>What makes us different</h2>
-          <p class="lede">Four commitments that shape every decision we make on your building's behalf.</p>
+          <h2>Four things we won't compromise on</h2>
+          <p class="lede">If we ever fall short on any of these, tell us. We'd rather hear it from you than read it in a review.</p>
         </div>
         <div class="diff-grid">
           <div class="diff-card">
-            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M8 12h8M8 16h5"></path></svg>
-            <h3>Transparent pricing</h3>
-            <p>One management fee, agreed up front. Contractor invoices pass through at cost, every time.</p>
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <h3>We answer</h3>
+            <p>Every message gets a reply from a person within one working day. If something takes longer to sort, we'll tell you when to expect an answer.</p>
           </div>
           <div class="diff-card">
-            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M6 6l2 2M16 16l2 2M6 18l2-2M16 8l2-2"></path><circle cx="12" cy="12" r="3"></circle></svg>
-            <h3>AI-assisted response</h3>
-            <p>Routine queries and job logging are handled instantly, day or night. More complex cases are passed straight to a person.</p>
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="2"></rect><path d="M8 12h8M8 16h5"></path></svg>
+            <h3>We show our workings</h3>
+            <p>Our fees, uplifts and commission are published. Every invoice shows what was done, who did it, and what your share is.</p>
           </div>
           <div class="diff-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"></path></svg>
-            <h3>Local expertise</h3>
-            <p>We know tenement closes, sandstone repair and Scottish title conditions, not just spreadsheets.</p>
+            <h3>We get ahead of problems</h3>
+            <p>Regular visits to your building, and gutters, roofs and drains looked at on a cycle, not just when water's already coming in.</p>
           </div>
           <div class="diff-card">
-            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.6-9.5-9.1C.8 8.4 2.4 5 6 5c2 0 3.4 1.1 4 2.3C10.6 6.1 12 5 14 5c3.6 0 5.2 3.4 3.5 6.9C19 16.4 12 21 12 21z"></path></svg>
-            <h3>A dedicated portal</h3>
-            <p>Every owner sees live job status through My ClearFactor, not just a call once a year.</p>
+            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
+            <h3>We're there out of hours</h3>
+            <p>Report a problem at 2am and it's logged at 2am. Real emergencies go straight to an out-of-hours contractor.</p>
           </div>
         </div>
       </div>
@@ -577,29 +715,29 @@
     <section class="divider">
       <div class="wrap">
         <div class="section-head">
-          <h2>Our team</h2>
-          <p class="lede">Profiles are being added as ClearFactor grows. Check back soon to meet the people managing your building.</p>
+          <h2>Who you'll deal with</h2>
+          <p class="lede">You won't be passed around a call centre. These are the people looking after your building.</p>
         </div>
         <div class="team-grid">
           <div class="team-card">
             <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg></div>
-            <h4>Operations Lead</h4>
-            <p class="role">Profile coming soon</p>
+            <h4>Your property manager</h4>
+            <p class="role">Your main contact. Visits the building, plans the work and keeps owners in the loop.</p>
           </div>
           <div class="team-card">
             <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg></div>
-            <h4>Property Manager</h4>
-            <p class="role">Profile coming soon</p>
-          </div>
-          <div class="team-card">
-            <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg></div>
-            <h4>Customer Support</h4>
-            <p class="role">Profile coming soon</p>
+            <h4>Repairs team</h4>
+            <p class="role">Gets the right contractor out, chases them, and checks the job's been done properly.</p>
           </div>
           <div class="team-card">
             <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg></div>
             <h4>Accounts</h4>
-            <p class="role">Profile coming soon</p>
+            <p class="role">Invoices, floats, payment plans and anything to do with your statement.</p>
+          </div>
+          <div class="team-card">
+            <div class="avatar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg></div>
+            <h4>Out of hours</h4>
+            <p class="role">Evenings, weekends and holidays, for the problems that really can't wait.</p>
           </div>
         </div>
       </div>
@@ -608,21 +746,21 @@
     <section class="divider" style="padding-bottom:76px;">
       <div class="wrap">
         <div class="section-head">
-          <h2>CSR</h2>
-          <p class="lede">Commitments we're building in as we grow, to the buildings we manage and the communities around them.</p>
+          <h2>Doing right by the area</h2>
+          <p class="lede">Small choices, made every day, about how we spend owners' money and run the business.</p>
         </div>
         <div class="csr-grid">
           <div class="csr-card">
-            <h3>Local contractors first</h3>
-            <p>We prioritise vetted, local tradespeople for common repairs, keeping spend in the communities we serve.</p>
+            <h3>Local trades first</h3>
+            <p>We use vetted local tradespeople wherever we can, so the money spent on your building stays in the community.</p>
           </div>
           <div class="csr-card">
-            <h3>Sustainable maintenance</h3>
-            <p>Where options are comparable in cost, we favour materials and methods with a lower environmental impact.</p>
+            <h3>Greener where it's sensible</h3>
+            <p>When two options cost about the same, we'll pick the one that's kinder to the environment and tell you why.</p>
           </div>
           <div class="csr-card">
             <h3>Paperless by default</h3>
-            <p>Statements, notices and invoices are delivered digitally through My ClearFactor to cut unnecessary waste.</p>
+            <p>Statements, notices and invoices go out digitally through My ClearFactor. Paper copies are still available if you'd prefer.</p>
           </div>
         </div>
       </div>
@@ -631,11 +769,11 @@
 
   <!-- ============ SERVICES ============ -->
   <div class="page" id="services" hidden>
-    <section class="tight" style="padding-top:52px;">
+    <section class="tight page-intro" style="padding-top:52px;">
       <div class="wrap">
         <p class="eyebrow">Services</p>
-        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:14ch;">Everything your building needs, under one factor.</h1>
-        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:58ch;">Each service is instructed, recorded and billed the same way: scoped before it's ordered, itemised after it's done.</p>
+        <h1 style="max-width:16ch;">Looking after the bits everyone shares.</h1>
+        <p class="intro">Closes, roofs, gardens, bin stores, lifts, insurance, and the money side of it all. Every job is agreed before it's ordered and itemised once it's done.</p>
       </div>
     </section>
     <section class="divider" style="padding-top:0;">
@@ -643,99 +781,404 @@
         <div class="services-grid">
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12l9-8 9 8M5 10v10h14V10"></path></svg>
-            <h3>Common repairs</h3>
-            <p>Roofs, gutters, render, close lighting and stairwells: scoped, quoted and instructed to vetted contractors.</p>
+            <h3>Repairs</h3>
+            <p>Slipped slates, blocked rhones, cracked render, close lighting, broken door entry. We get the right trade out and check the work's been done properly.</p>
           </div>
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 20l4-10 4 6 3-4 5 8H4z"></path></svg>
-            <h3>Cleaning &amp; grounds</h3>
-            <p>Close cleaning, backcourt and garden maintenance, bin store upkeep, on a schedule owners agree in advance.</p>
+            <h3>Cleaning and landscaping</h3>
+            <p>Stair cleaning, back courts, gardens, hedges and bin stores, on a schedule agreed with owners and checked when we visit.</p>
           </div>
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V6l8-3z"></path></svg>
             <h3>Buildings insurance</h3>
-            <p>Block policy placed and reviewed annually, with claims handled on the owners' behalf after storm or water damage.</p>
+            <p>One common policy for the whole building, reviewed every year. If there's a leak or storm damage, we help you through the claim from start to finish.</p>
           </div>
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 10h18M7 15h4"></path></svg>
-            <h3>Float &amp; accounts</h3>
-            <p>A working float sized to the building, reconciled accounts, and a statement any owner can request at any time.</p>
+            <h3>Accounts</h3>
+            <p>Clear quarterly invoices, a float held separately from our own money, and a full statement whenever you ask for one.</p>
           </div>
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"></path></svg>
-            <h3>Emergency response</h3>
-            <p>A round-the-clock line for anything that can't wait: burst pipes, storm damage, a close door that won't lock.</p>
+            <h3>Out-of-hours emergencies</h3>
+            <p>A burst pipe on a Sunday or a close door that won't lock at midnight. There's always someone to call.</p>
           </div>
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
-            <h3>Owner communication</h3>
-            <p>Notice of works before they're instructed, and a plain-English summary once it's done, sent through the portal or by email.</p>
+            <h3>Keeping you posted</h3>
+            <p>Notice before work starts, an update when it's finished, and job progress you can check yourself in My ClearFactor.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="divider">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>What your management fee covers</h2>
+          <p class="lede">No surprises. Here's what's included, and what's charged separately. Anything extra is always quoted to you first.</p>
+        </div>
+        <div class="include-grid">
+          <div class="include-col">
+            <h3>Included</h3>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg><span>A named property manager for your building</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg><span>Regular visits to check the common parts</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg><span>Arranging and checking routine repairs</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg><span>Setting up and managing cleaning, landscaping and other regular contracts</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg><span>Invoicing, credit control and keeping your accounts</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 13l4 4L19 7"></path></svg><span>Access to My ClearFactor and the out-of-hours line</span></li>
+            </ul>
+          </div>
+          <div class="include-col extra">
+            <h3>Charged separately</h3>
+            <ul>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path></svg><span>Managing major works, such as a re-roof or full redecoration</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path></svg><span>Sale packs for your solicitor when you sell</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path></svg><span>Surveys and insurance revaluations (the surveyor's cost)</span></li>
+              <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"></path></svg><span>Meetings held outside normal working hours</span></li>
+            </ul>
+            <p style="margin-top:18px; font-size:14.5px; color:var(--ink-soft);">The full list, with prices, is on our <a href="#fees" style="color:var(--accent-strong);">fees page</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="divider">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>When a bigger job comes up</h2>
+          <p class="lede">A new roof or a full repaint is a big spend. You'll be involved at every stage, and nothing starts until owners have agreed it.</p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <h3>We explain the problem</h3>
+            <p>What's wrong, why it needs doing, and what happens if it's left. Photos included.</p>
+          </div>
+          <div class="step">
+            <h3>We get quotes</h3>
+            <p>Competitive quotes from contractors who know the work, with a surveyor brought in where the job needs one.</p>
+          </div>
+          <div class="step">
+            <h3>Owners decide</h3>
+            <p>You vote on the proposal, in line with your title deeds. Funds are collected before anything starts.</p>
+          </div>
+          <div class="step">
+            <h3>We see it through</h3>
+            <p>Updates while the work's on, and a sign-off once it's finished and checked.</p>
           </div>
         </div>
       </div>
     </section>
   </div>
 
-  <!-- ============ SUPPORT ============ -->
-  <div class="page" id="support" hidden>
-    <section class="tight" style="padding-top:52px;">
+  <!-- ============ FEES ============ -->
+  <div class="page" id="fees" hidden>
+    <section class="tight page-intro" style="padding-top:52px;">
       <div class="wrap">
-        <p class="eyebrow">Customer Support</p>
-        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:15ch;">Answers, before you have to ask twice.</h1>
-        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:58ch;">The most common reasons owners get in touch, answered up front.</p>
+        <p class="eyebrow">Our fees</p>
+        <h1 style="max-width:17ch;">What we charge, in black and white.</h1>
+        <p class="intro">Plenty of factors keep this in the small print. We'd rather you saw it before you sign up, so here's every charge in one place.</p>
       </div>
     </section>
     <section class="divider" style="padding-top:0;">
       <div class="wrap">
-        <div class="accordion">
-          <details class="acc-item" open>
-            <summary>Debt Recovery
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
-            </summary>
-            <div class="acc-body">
-              <p>If an owner's account falls into arrears, we follow a fixed process: a friendly reminder, a formal notice, then, only if needed, referral for recovery. Interest and reasonable recovery costs may be added at that final stage.</p>
-              <p><strong>Struggling to pay?</strong> Contact us before a payment is missed. We can usually agree a short-term plan rather than let an account fall behind.</p>
-            </div>
-          </details>
-          <details class="acc-item">
-            <summary>Homeowner Guides
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
-            </summary>
-            <div class="acc-body">
-              <p>Plain-English guides cover the topics owners ask about most: what factoring actually covers, how the float works, how repairs get approved, and what happens when you sell your flat.</p>
-              <p>Guides are published to My ClearFactor as they're written. If the one you need isn't there yet, ask your property manager for it directly.</p>
-            </div>
-          </details>
-          <details class="acc-item">
-            <summary>Emergency Contacts
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
-            </summary>
-            <div class="acc-body">
-              <p>For anything that puts the building or a resident at immediate risk, such as burst pipes, storm damage, or a common door that won't secure, call the 24-hour line. It's triaged instantly and, where needed, a contractor is instructed the same day.</p>
-              <p>Not urgent? Log it through My ClearFactor instead and it's handled in the normal repairs queue.</p>
-            </div>
-          </details>
-          <details class="acc-item">
-            <summary>Insurance Claims
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
-            </summary>
-            <div class="acc-body">
-              <p>Report damage to common property as soon as it's found. We log the claim with the block insurer, arrange any necessary inspection, and keep owners updated until it's settled.</p>
-              <p>Claims on an individual flat's own contents are between the owner and their personal insurer. We can point you to the block policy documents if you need them.</p>
-            </div>
-          </details>
+        <div class="fee-table">
+          <div class="fee-row">
+            <h3>Management fee</h3>
+            <div class="amount">Fixed, per property</div>
+            <p>Billed quarterly in advance. It covers everything listed under "Included" on our services page. The amount for your building is set out in your development schedule.</p>
+          </div>
+          <div class="fee-row">
+            <h3>Regular contracts</h3>
+            <div class="amount">20% on top of the contractor's charge</div>
+            <p>Cleaning, landscaping, lift servicing and similar. Covers finding the contractor, managing and checking the work, and paying them.</p>
+          </div>
+          <div class="fee-row">
+            <h3>One-off repairs</h3>
+            <div class="amount">15% on top of the contractor's charge</div>
+            <p>Covers arranging the job, following it up, checking it's been done and paying the contractor.</p>
+          </div>
+          <div class="fee-row">
+            <h3>Common electricity</h3>
+            <div class="amount">At cost, nothing added</div>
+            <p>Close lighting and other shared supplies are recharged exactly as billed by the supplier.</p>
+          </div>
+          <div class="fee-row">
+            <h3>Buildings insurance</h3>
+            <div class="amount">25% commission</div>
+            <p>Paid by the insurer and shown on your insurance schedule. Covers placing and renewing the policy and helping owners with claims.</p>
+          </div>
+          <div class="fee-row">
+            <h3>Selling your property</h3>
+            <div class="amount">£150 + VAT</div>
+            <p>The sale pack your solicitor asks for, plus apportioning your final account and refunding your float.</p>
+          </div>
+          <div class="fee-row">
+            <h3>Late payment</h3>
+            <div class="amount">£50 admin charge</div>
+            <p>Only applied after reminders have gone unanswered. Interest may also be added where your title deeds allow it.</p>
+          </div>
+        </div>
+        <div class="fee-note">
+          <p><strong>Everything here is also in our Written Statement of Services</strong>, which every owner receives when we take on their building. If any of these charges change, we'll write to you before it happens. Have a question about a charge? Ask your property manager, and they'll walk you through it.</p>
         </div>
       </div>
     </section>
   </div>
 
-  <!-- ============ MAKE A PAYMENT ============ -->
-  <div class="page" id="payment" hidden>
-    <section class="tight" style="padding-top:52px;">
+  <!-- ============ SWITCH ============ -->
+  <div class="page" id="switch" hidden>
+    <section class="tight page-intro" style="padding-top:52px;">
       <div class="wrap">
-        <p class="eyebrow">Make a Payment</p>
-        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:15ch;">Pay your account, your way.</h1>
-        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:58ch;">Every method reaches the same client account, ring-fenced from ClearFactor's own funds.</p>
+        <p class="eyebrow">Switch to us</p>
+        <h1 style="max-width:17ch;">Changing factor is easier than you'd think.</h1>
+        <p class="intro">If your factor doesn't reply, doesn't explain its bills, or hasn't been near your building in months, you don't have to put up with it. Here's how a move to ClearFactor works.</p>
+      </div>
+    </section>
+    <section class="divider" style="padding-top:0;">
+      <div class="wrap">
+        <div class="steps">
+          <div class="step">
+            <h3>Tell us about your building</h3>
+            <p>What's working, what isn't, and roughly how many flats or houses there are. We'll send you a written quote.</p>
+          </div>
+          <div class="step">
+            <h3>We check your title deeds</h3>
+            <p>Your deeds set out how a factor is changed and how many owners need to agree. We read them and tell you exactly what's needed.</p>
+          </div>
+          <div class="step">
+            <h3>Get your neighbours on board</h3>
+            <p>We'll give you a letter and voting form to share, or write to owners for you. In most buildings, a majority is all it takes.</p>
+          </div>
+          <div class="step">
+            <h3>We handle the handover</h3>
+            <p>Notice goes to your current factor. We collect the records, contracts and insurance details, and every owner gets a welcome pack from us.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="divider">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Common questions about switching</h2>
+          <p class="lede">The things owners usually want to know before they make the move.</p>
+        </div>
+        <div class="accordion">
+          <details class="acc-item" open>
+            <summary>How long does it take?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Usually a matter of weeks. Most of the time goes on getting owners to vote and on the notice period your deeds or your current factor's terms require. We'll give you a realistic timeline once we've seen the deeds.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>What happens to the float we've already paid?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Your outgoing factor should settle it on your final account, or transfer it if your deeds say so. Any sinking or reserve fund belongs to the building and should follow it. We'll chase this on your behalf as part of the handover.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>Will there be a gap in our buildings insurance?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>No. A common policy arranged by your old factor often ends when their appointment does, so we arrange new cover to start the day we take over.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>Do all the owners need to agree?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Rarely. It depends on what your title deeds say, but in most buildings a majority of owners is enough. Part of our job is working out the exact number for you, so nobody has to wade through legal wording.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>We're a new-build development. Can we still switch?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Usually, yes. Developers often appoint the first factor, but owners can normally change it once the rules in the deed of conditions allow. Send us your deeds and we'll tell you where you stand.</p>
+            </div>
+          </details>
+        </div>
+        <div style="margin-top:40px;">
+          <a class="btn btn-navy" href="#contact">Start a conversation</a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ HELP ============ -->
+  <div class="page" id="support" hidden>
+    <section class="tight page-intro" style="padding-top:52px;">
+      <div class="wrap">
+        <p class="eyebrow">Help and FAQs</p>
+        <h1 style="max-width:17ch;">Answers to the things people ask us most.</h1>
+        <p class="intro">Can't find what you're looking for? Message your property manager through My ClearFactor and they'll come back to you.</p>
+      </div>
+    </section>
+    <section class="divider" style="padding-top:0;">
+      <div class="wrap">
+
+        <div class="faq-group">
+          <h2>Repairs and emergencies</h2>
+          <div class="accordion">
+            <details class="acc-item" open>
+              <summary>What counts as an emergency?
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>Water coming into the building, a close door that won't lock, no lighting in the stair, or anything else that puts people or the property at risk. Call our out-of-hours line and we'll get a contractor out.</p>
+                <p>If it can wait until the next working day, log it in My ClearFactor instead. Out-of-hours call-outs cost more, and that cost is shared by every owner.</p>
+              </div>
+            </details>
+            <details class="acc-item">
+              <summary>Is this a common repair, or mine to sort?
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>As a rule of thumb, if it's shared under your title deeds (the roof, the close, the rhones, shared pipes, communal gardens), it's common and we'll deal with it. If it only serves your own flat, such as your windows or the pipes inside your home, it's yours.</p>
+                <p>Not sure? Ask us. We'll check your deeds rather than guess.</p>
+              </div>
+            </details>
+            <details class="acc-item">
+              <summary>How do I know a repair's actually been done?
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>Every job logged through My ClearFactor shows its progress, from reported to closed. If you think something hasn't been done properly, reply on the job and we'll get the contractor back.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="faq-group">
+          <h2>Money and bills</h2>
+          <div class="accordion">
+            <details class="acc-item">
+              <summary>What is the float, and why did I pay it?
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>The float is a one-off deposit, usually set by your title deeds. It means we can pay contractors promptly without waiting for every owner to settle first. It's held in your building's client account and refunded on your final bill when you sell.</p>
+              </div>
+            </details>
+            <details class="acc-item">
+              <summary>Why is my bill different from last quarter?
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>Your management fee stays the same, but repairs vary from quarter to quarter. Every line on your invoice shows the work, the contractor and your share, so you can see exactly what's changed.</p>
+              </div>
+            </details>
+            <details class="acc-item">
+              <summary>I'm struggling to pay
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>Get in touch before the payment is due, not after. We can usually agree a payment plan that works, and we'd much rather do that than send reminders.</p>
+              </div>
+            </details>
+            <details class="acc-item">
+              <summary>What happens if a neighbour doesn't pay?
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>We follow a set process: a reminder, a final notice, and then, if needed, a Notice of Potential Liability on the property and court action. Unpaid debt affects everyone in the building, so we don't let it drift. If a debt truly can't be recovered, your title deeds may require it to be shared between the other owners, and we'll always explain why before that happens.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="faq-group">
+          <h2>Insurance</h2>
+          <div class="accordion">
+            <details class="acc-item">
+              <summary>Why does the building insurance go through you?
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>Most title deeds for flats require one common policy for the whole building. That way, if there's a fire or a serious leak, there's one insurer and one claim, not a dozen policies with gaps between them.</p>
+                <p>We receive 25% commission from the insurer for arranging the policy and helping with claims. It's shown on your schedule.</p>
+              </div>
+            </details>
+            <details class="acc-item">
+              <summary>I already insure my flat separately
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>Let your own insurer know you're covered under a common buildings policy. Many will refund some or all of your buildings premium. Keep your contents cover, though, because the common policy doesn't include your belongings.</p>
+              </div>
+            </details>
+            <details class="acc-item">
+              <summary>How do I make a claim?
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>Tell us as soon as you find the damage, with photos if you can. For anything affecting the common parts, we register the claim with the insurer, arrange any inspection and keep you updated until it's settled.</p>
+                <p>Damage to your own contents is a matter for your personal insurer. We can send you the common policy details if they ask for them.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+        <div class="faq-group">
+          <h2>Selling, moving in, and everything else</h2>
+          <div class="accordion">
+            <details class="acc-item">
+              <summary>I'm selling my flat. What do I need to do?
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>Tell your solicitor we're your factor. They'll ask us for a sale pack, which costs £150 + VAT. Once the sale completes, we'll send your final bill with your float credited back.</p>
+              </div>
+            </details>
+            <details class="acc-item">
+              <summary>I've just moved in. What happens now?
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>We'll write to you with our Written Statement of Services, your share of the building's costs, and an invite to My ClearFactor. If you haven't heard from us within a few weeks of moving in, give us a shout.</p>
+              </div>
+            </details>
+            <details class="acc-item">
+              <summary>Where can I learn more about owning a flat in Scotland?
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p><a href="https://underoneroof.scot" target="_blank" rel="noopener">Under One Roof</a> is an excellent free guide to shared repairs, title deeds and owners' rights in Scotland. We also publish our own short guides in My ClearFactor.</p>
+              </div>
+            </details>
+            <details class="acc-item">
+              <summary>I'm not happy with something. How do I complain?
+                <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+              </summary>
+              <div class="acc-body">
+                <p>Tell your property manager first. Most things can be put right quickly. If they can't sort it, put your complaint in writing and a senior member of the team will look into it and reply in writing.</p>
+                <p>If you're still unhappy after that, you can apply to the First-tier Tribunal for Scotland (Housing and Property Chamber). Our full complaints procedure is in our Written Statement of Services.</p>
+              </div>
+            </details>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ PAY ============ -->
+  <div class="page" id="payment" hidden>
+    <section class="tight page-intro" style="padding-top:52px;">
+      <div class="wrap">
+        <p class="eyebrow">Pay your account</p>
+        <h1 style="max-width:15ch;">Pay however suits you.</h1>
+        <p class="intro">Whichever way you pay, the money goes into your building's client account, kept separate from ClearFactor's own funds.</p>
       </div>
     </section>
     <section class="divider" style="padding-top:0;">
@@ -744,46 +1187,46 @@
           <div class="pay-method">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="6" width="20" height="14" rx="2"></rect><path d="M2 10h20M6 15h4"></path></svg>
             <h4>Direct debit</h4>
-            <p>Set once, taken automatically each period. The simplest way to stay ahead of arrears.</p>
+            <p>Set it up once and forget about it. The easiest way to never miss a due date.</p>
           </div>
           <div class="pay-method">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M15 6l6 6-6 6"></path></svg>
             <h4>Bank transfer</h4>
-            <p>Pay by BACS or online banking, using the account reference found on every invoice.</p>
+            <p>Pay by online banking using the reference printed on your invoice.</p>
           </div>
           <div class="pay-method">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 9h18"></path></svg>
-            <h4>Card, online</h4>
-            <p>Pay a single invoice or top up your float by debit or credit card through My ClearFactor.</p>
+            <h4>Card</h4>
+            <p>Pay an invoice by debit or credit card in My ClearFactor, any time.</p>
           </div>
           <div class="pay-method">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
             <h4>Payment plans</h4>
-            <p>If a bill catches you out, get in touch before it's due. Short-term plans are agreed case by case.</p>
+            <p>Bigger bill than expected? Talk to us before it's due and we'll work something out.</p>
           </div>
         </div>
 
         <div class="accordion" style="margin-top:56px;">
           <details class="acc-item" open>
-            <summary>Ways to pay
+            <summary>When do bills go out?
               <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
             </summary>
             <div class="acc-body">
-              <p>Direct debit is our recommended method. Set it up once through My ClearFactor and you'll never miss a due date. One-off payments can be made by card online, or by bank transfer using the reference on your invoice.</p>
+              <p>Invoices go out every quarter. Your management fee is billed in advance, and repairs and services are billed after the work has been done. The exact dates and payment terms are in your Written Statement of Services.</p>
             </div>
           </details>
           <details class="acc-item">
-            <summary>Payment rules
+            <summary>What if I pay late?
               <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
             </summary>
             <div class="acc-body">
-              <p>Invoices are issued in line with the schedule in your written statement of service, and are due within the period stated on the invoice. The float is topped up when it falls below the level agreed for your building, so routine costs can still be met without delay.</p>
+              <p>You'll get a reminder first. If an invoice is still unpaid after that, a £50 admin charge is added, and interest may apply where your title deeds allow it. If you're finding it hard to pay, tell us early and we'll agree a plan instead.</p>
             </div>
           </details>
         </div>
 
         <div style="margin-top:40px;">
-          <a class="btn btn-navy" href="#portal">Make a payment in My ClearFactor</a>
+          <a class="btn btn-navy" href="#portal">Pay in My ClearFactor</a>
         </div>
       </div>
     </section>
@@ -795,28 +1238,29 @@
       <div class="wrap portal-hero">
         <div>
           <p class="eyebrow">My ClearFactor</p>
-          <h1 style="font-size:clamp(32px,4.6vw,46px); margin-top:12px; max-width:14ch; color:var(--on-navy);">Your building, always in view.</h1>
-          <p style="color:var(--on-navy-soft); font-size:16.5px; margin-top:16px; max-width:52ch;">My ClearFactor is your owner portal, powered by AskPorter. See outstanding jobs, track repairs through to completion, message your property manager and pay your account, all in one place.</p>
+          <h1 style="font-size:clamp(32px,4.6vw,46px); margin-top:12px; max-width:14ch; color:var(--on-navy);">Your building, without the phone calls.</h1>
+          <p style="color:var(--on-navy-soft); font-size:16.5px; margin-top:16px; max-width:52ch;">My ClearFactor is your owner portal, powered by AskPorter. Report a problem, see where every job is up to, message your property manager and pay your account, all from your phone.</p>
           <ul class="portal-list">
-            <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>Track every job, from logged to closed</span></li>
+            <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>Report a repair any time, day or night</span></li>
+            <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>Follow each job from reported to done</span></li>
             <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>Message your property manager directly</span></li>
-            <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>View statements and pay your account online</span></li>
+            <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>See your statements and pay online</span></li>
           </ul>
           <span class="portal-badge">Powered by AskPorter</span>
         </div>
         <div class="portal-panel">
           <p class="eyebrow">Sign in</p>
-          <h3 style="margin-top:10px; color:var(--on-navy); font-size:20px;">Landlords &amp; homeowners</h3>
-          <p style="color:var(--on-navy-soft); font-size:14.5px; margin-top:6px;">Access your dashboard, jobs and statements.</p>
+          <h3 style="margin-top:10px; color:var(--on-navy); font-size:20px;">Owners and landlords</h3>
+          <p style="color:var(--on-navy-soft); font-size:14.5px; margin-top:6px;">See your jobs, statements and building updates.</p>
           <div class="login-row">
             <a class="btn btn-on-navy" href="#" rel="noopener">Log in to My ClearFactor</a>
-            <a class="btn btn-outline-on-navy btn-sm" href="#contact">Need an invite? Contact us</a>
+            <a class="btn btn-outline-on-navy btn-sm" href="#contact">No login yet? Ask us for an invite</a>
           </div>
           <div style="height:1px; background:var(--on-navy-line); margin:22px 0;"></div>
           <h3 style="color:var(--on-navy); font-size:20px;">Tenants</h3>
-          <p style="color:var(--on-navy-soft); font-size:14.5px; margin-top:6px;">Report an issue with the common parts of your building.</p>
+          <p style="color:var(--on-navy-soft); font-size:14.5px; margin-top:6px;">Something wrong in the close, stair or garden? Let us know.</p>
           <div class="login-row">
-            <a class="btn btn-outline-on-navy" href="#" rel="noopener">Report an issue</a>
+            <a class="btn btn-outline-on-navy" href="#" rel="noopener">Report a problem</a>
           </div>
         </div>
       </div>
@@ -825,23 +1269,27 @@
 
   <!-- ============ CONTACT ============ -->
   <div class="page" id="contact" hidden>
-    <section class="tight" style="padding-top:52px;">
+    <section class="tight page-intro" style="padding-top:52px;">
       <div class="wrap">
-        <p class="eyebrow">Contact Us</p>
-        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:14ch;">Talk to us about your building.</h1>
-        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:56ch;">Appointing a factor for the first time, or moving on from one? Send the details and we'll come back with a written quote.</p>
+        <p class="eyebrow">Contact us</p>
+        <h1 style="max-width:14ch;">Tell us about your building.</h1>
+        <p class="intro">Looking for a factor for the first time, or ready to leave the one you've got? Send us a few details and we'll come back to you with a written quote.</p>
       </div>
     </section>
     <section class="divider" style="padding-top:0;">
       <div class="wrap contact-grid">
         <div class="contact-info">
           <dl class="contact-detail">
-            <dt>Enquiries</dt>
+            <dt>Email</dt>
             <dd><a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a></dd>
           </dl>
           <dl class="contact-detail">
-            <dt>Emergency line</dt>
-            <dd>Available 24 hours to instructed clients</dd>
+            <dt>Already a customer?</dt>
+            <dd>The quickest way to reach your property manager is through <a href="#portal">My ClearFactor</a>.</dd>
+          </dl>
+          <dl class="contact-detail">
+            <dt>Out-of-hours emergencies</dt>
+            <dd>Available 24 hours a day to buildings we manage</dd>
           </dl>
           <div style="display:grid; gap:14px; margin-top:8px;">
             <div class="office-card">
@@ -877,7 +1325,7 @@
               </select>
             </div>
             <div class="field">
-              <label for="cf-flats">Number of flats</label>
+              <label for="cf-flats">Number of homes</label>
               <input id="cf-flats" name="flats" type="number" min="1" inputmode="numeric">
             </div>
           </div>
@@ -886,8 +1334,8 @@
             <input id="cf-address" name="address" type="text" autocomplete="street-address">
           </div>
           <div class="field">
-            <label for="cf-message">What's prompting the enquiry?</label>
-            <textarea id="cf-message" name="message" placeholder="e.g. current factor is retiring, self-managed and want support, roof repair needed..."></textarea>
+            <label for="cf-message">What's prompting you to get in touch?</label>
+            <textarea id="cf-message" name="message" placeholder="e.g. our factor never replies, we've no factor at the moment, the roof's leaking and nobody's dealing with it..."></textarea>
           </div>
           <button class="btn btn-navy" type="submit" style="justify-self:start; margin-top:4px;">Send enquiry</button>
         </form>
@@ -905,21 +1353,22 @@
           <img class="mark" src="assets/logo-white-on-blue.png" width="28" height="28" alt="ClearFactor">
           <span>ClearFactor</span>
         </a>
-        <p class="desc">Transparent, proactive property factoring for homeowners, residents' associations and developers across Scotland.</p>
+        <p class="desc">Property factoring that answers, shows its workings and looks after your building properly. Across Scotland.</p>
       </div>
       <div class="footer-col">
-        <h5>Company</h5>
+        <h5>ClearFactor</h5>
         <ul>
-          <li><a href="#about">About Us</a></li>
+          <li><a href="#about">About</a></li>
           <li><a href="#services">Services</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="#fees">Our fees</a></li>
+          <li><a href="#switch">Switch to us</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h5>Owners</h5>
         <ul>
-          <li><a href="#support">Support</a></li>
-          <li><a href="#payment">Make a payment</a></li>
+          <li><a href="#support">Help and FAQs</a></li>
+          <li><a href="#payment">Pay your account</a></li>
           <li><a href="#portal">My ClearFactor</a></li>
         </ul>
       </div>
@@ -927,6 +1376,7 @@
         <h5>Get in touch</h5>
         <ul>
           <li><a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a></li>
+          <li><a href="#contact">Get a quote</a></li>
         </ul>
       </div>
     </div>
@@ -970,3 +1420,5 @@
     }
   })();
 </script>
+</body>
+</html>
