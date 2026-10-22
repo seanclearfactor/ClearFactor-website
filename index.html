@@ -329,11 +329,16 @@
   .hub-card h3 { font-size: 18px; }
   .hub-card p { color: var(--ink-soft); font-size: 14.5px; }
   .hub-card .go { font-size: 13.5px; font-weight: 700; color: var(--accent-strong); margin-top: 4px; }
+  @media (min-width: 861px) {
+    .hub-grid { grid-template-columns: repeat(6, 1fr); }
+    .hub-grid .hub-card { grid-column: span 2; }
+    .hub-grid .hub-card:nth-child(n+4) { grid-column: span 3; }
+  }
   @media (max-width: 860px) { .hub-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 560px) { .hub-grid { grid-template-columns: 1fr; } }
 
   /* ---------- ABOUT ---------- */
-  .diff-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  .diff-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
   .diff-card { border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); padding: 26px 22px; display: grid; gap: 10px; }
   .diff-card .glyph { width: 32px; height: 32px; color: var(--accent); }
   .diff-card h3 { font-size: 15.5px; font-weight: 700; }
@@ -424,20 +429,6 @@
   @media (max-width: 860px) { .pay-methods { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 500px) { .pay-methods { grid-template-columns: 1fr; } }
 
-  /* ---------- PORTAL ---------- */
-  .portal-hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 48px; align-items: center; }
-  .portal-panel { border: 1px solid var(--on-navy-line); border-radius: 12px; padding: 28px; background: color-mix(in srgb, var(--on-navy) 6%, transparent); }
-  .portal-panel .login-row { display: grid; gap: 12px; margin-top: 18px; }
-  .portal-list { display: grid; gap: 14px; margin-top: 26px; }
-  .portal-list li { display: flex; gap: 12px; }
-  .portal-list .glyph { width: 20px; height: 20px; color: #6fc3f0; flex-shrink: 0; margin-top: 2px; }
-  .portal-list span { color: var(--on-navy-soft); font-size: 15px; }
-  .portal-badge {
-    display: inline-flex; align-items: center; gap: 7px;
-    font-family: "Public Sans", sans-serif; font-weight: 700; font-size: 11.5px; letter-spacing: 0.04em; text-transform: uppercase;
-    color: var(--on-navy-soft); border: 1px solid var(--on-navy-line); padding: 6px 10px; border-radius: 20px; margin-top: 18px;
-  }
-  @media (max-width: 800px) { .portal-hero { grid-template-columns: 1fr; } }
 
   /* ---------- FOOTER ---------- */
   footer.band { padding-block: 44px 30px; }
@@ -472,7 +463,6 @@
       <a class="navlink" data-page="contact" href="#contact">Contact</a>
     </nav>
     <div class="nav-actions">
-      <a class="btn btn-accent btn-sm" href="#portal">My ClearFactor</a>
       <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
       </button>
@@ -526,7 +516,6 @@
           <a class="hub-card" href="#services"><h3>Services</h3><p>Repairs, cleaning, insurance, accounts and emergency response, all under one roof.</p><span class="go">See services &rarr;</span></a>
           <a class="hub-card" href="#support"><h3>Customer Support</h3><p>Debt recovery, homeowner guides, emergency contacts and insurance claims.</p><span class="go">Get support &rarr;</span></a>
           <a class="hub-card" href="#payment"><h3>Make a Payment</h3><p>Ways to pay your account and how float and arrears are handled.</p><span class="go">View payment options &rarr;</span></a>
-          <a class="hub-card" href="#portal"><h3>My ClearFactor</h3><p>Your portal, powered by AskPorter. Track jobs and message your property manager.</p><span class="go">Open the portal &rarr;</span></a>
           <a class="hub-card" href="#contact"><h3>Contact Us</h3><p>Get a quote, reach your property manager, or find our offices.</p><span class="go">Get in touch &rarr;</span></a>
         </div>
       </div>
@@ -547,7 +536,7 @@
       <div class="wrap">
         <div class="section-head">
           <h2>What makes us different</h2>
-          <p class="lede">Four commitments that shape every decision we make on your building's behalf.</p>
+          <p class="lede">Three commitments that shape every decision we make on your building's behalf.</p>
         </div>
         <div class="diff-grid">
           <div class="diff-card">
@@ -564,11 +553,6 @@
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"></path></svg>
             <h3>Local expertise</h3>
             <p>We know tenement closes, sandstone repair and Scottish title conditions, not just spreadsheets.</p>
-          </div>
-          <div class="diff-card">
-            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s-7-4.6-9.5-9.1C.8 8.4 2.4 5 6 5c2 0 3.4 1.1 4 2.3C10.6 6.1 12 5 14 5c3.6 0 5.2 3.4 3.5 6.9C19 16.4 12 21 12 21z"></path></svg>
-            <h3>A dedicated portal</h3>
-            <p>Every owner sees live job status through My ClearFactor, not just a call once a year.</p>
           </div>
         </div>
       </div>
@@ -622,7 +606,7 @@
           </div>
           <div class="csr-card">
             <h3>Paperless by default</h3>
-            <p>Statements, notices and invoices are delivered digitally through My ClearFactor to cut unnecessary waste.</p>
+            <p>Statements, notices and invoices are sent by email as standard to cut unnecessary waste.</p>
           </div>
         </div>
       </div>
@@ -669,7 +653,7 @@
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
             <h3>Owner communication</h3>
-            <p>Notice of works before they're instructed, and a plain-English summary once it's done, sent through the portal or by email.</p>
+            <p>Notice of works before they're instructed, and a plain-English summary once it's done, sent to you by email.</p>
           </div>
         </div>
       </div>
@@ -703,7 +687,7 @@
             </summary>
             <div class="acc-body">
               <p>Plain-English guides cover the topics owners ask about most: what factoring actually covers, how the float works, how repairs get approved, and what happens when you sell your flat.</p>
-              <p>Guides are published to My ClearFactor as they're written. If the one you need isn't there yet, ask your property manager for it directly.</p>
+              <p>If you'd like a guide on a particular topic, ask your property manager and they'll send it to you.</p>
             </div>
           </details>
           <details class="acc-item">
@@ -712,7 +696,7 @@
             </summary>
             <div class="acc-body">
               <p>For anything that puts the building or a resident at immediate risk, such as burst pipes, storm damage, or a common door that won't secure, call the 24-hour line. It's triaged instantly and, where needed, a contractor is instructed the same day.</p>
-              <p>Not urgent? Log it through My ClearFactor instead and it's handled in the normal repairs queue.</p>
+              <p>Not urgent? Email <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a> instead and it's handled in the normal repairs queue.</p>
             </div>
           </details>
           <details class="acc-item">
@@ -749,7 +733,7 @@
           <div class="pay-method">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 9h18"></path></svg>
             <h4>Debit or credit card</h4>
-            <p>Get in touch and we'll take a card payment over the phone or send you a secure payment link.</p>
+            <p>Pay securely online by debit or credit card using the payment link on your invoice.</p>
           </div>
           <div class="pay-method">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
@@ -764,7 +748,7 @@
               <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
             </summary>
             <div class="acc-body">
-              <p>You can pay by bank transfer using the bank details and reference on your invoice, or by debit or credit card. For card payments, email <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a> and we'll take payment by phone or send a secure link. Always quote your account reference so your payment is matched to your account straight away.</p>
+              <p>You can pay by bank transfer using the bank details and reference on your invoice, or by debit or credit card using the secure payment link on your invoice. If you pay by bank transfer, always quote your account reference so your payment is matched to your account straight away.</p>
             </div>
           </details>
           <details class="acc-item">
@@ -787,40 +771,6 @@
 
         <div style="margin-top:40px;">
           <a class="btn btn-navy" href="#contact">Contact us about a payment</a>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ============ MY CLEARFACTOR (portal) ============ -->
-  <div class="page" id="portal" hidden>
-    <section class="band" style="padding-block:76px;">
-      <div class="wrap portal-hero">
-        <div>
-          <p class="eyebrow">My ClearFactor</p>
-          <h1 style="font-size:clamp(32px,4.6vw,46px); margin-top:12px; max-width:14ch; color:var(--on-navy);">Your building, always in view.</h1>
-          <p style="color:var(--on-navy-soft); font-size:16.5px; margin-top:16px; max-width:52ch;">My ClearFactor is your owner portal, powered by AskPorter. See outstanding jobs, track repairs through to completion, message your property manager and pay your account, all in one place.</p>
-          <ul class="portal-list">
-            <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>Track every job, from logged to closed</span></li>
-            <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>Message your property manager directly</span></li>
-            <li><svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 13l4 4L19 7"></path></svg><span>View statements and pay your account online</span></li>
-          </ul>
-          <span class="portal-badge">Powered by AskPorter</span>
-        </div>
-        <div class="portal-panel">
-          <p class="eyebrow">Sign in</p>
-          <h3 style="margin-top:10px; color:var(--on-navy); font-size:20px;">Landlords &amp; homeowners</h3>
-          <p style="color:var(--on-navy-soft); font-size:14.5px; margin-top:6px;">Access your dashboard, jobs and statements.</p>
-          <div class="login-row">
-            <a class="btn btn-on-navy" href="#" rel="noopener">Log in to My ClearFactor</a>
-            <a class="btn btn-outline-on-navy btn-sm" href="#contact">Need an invite? Contact us</a>
-          </div>
-          <div style="height:1px; background:var(--on-navy-line); margin:22px 0;"></div>
-          <h3 style="color:var(--on-navy); font-size:20px;">Tenants</h3>
-          <p style="color:var(--on-navy-soft); font-size:14.5px; margin-top:6px;">Report an issue with the common parts of your building.</p>
-          <div class="login-row">
-            <a class="btn btn-outline-on-navy" href="#" rel="noopener">Report an issue</a>
-          </div>
         </div>
       </div>
     </section>
@@ -923,7 +873,6 @@
         <ul>
           <li><a href="#support">Support</a></li>
           <li><a href="#payment">Make a payment</a></li>
-          <li><a href="#portal">My ClearFactor</a></li>
         </ul>
       </div>
       <div class="footer-col">
