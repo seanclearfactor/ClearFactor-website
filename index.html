@@ -329,6 +329,11 @@
   .hub-card h3 { font-size: 18px; }
   .hub-card p { color: var(--ink-soft); font-size: 14.5px; }
   .hub-card .go { font-size: 13.5px; font-weight: 700; color: var(--accent-strong); margin-top: 4px; }
+  @media (min-width: 861px) {
+    .hub-grid { grid-template-columns: repeat(6, 1fr); }
+    .hub-grid .hub-card { grid-column: span 2; }
+    .hub-grid .hub-card:nth-child(n+4) { grid-column: span 3; }
+  }
   @media (max-width: 860px) { .hub-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 560px) { .hub-grid { grid-template-columns: 1fr; } }
 
@@ -397,6 +402,8 @@
   details.acc-item[open] summary .chev { transform: rotate(45deg); }
   .acc-body { padding: 0 4px 24px; color: var(--ink-soft); font-size: 15px; max-width: 68ch; display: grid; gap: 10px; }
   .acc-body strong { color: var(--ink); }
+  .faq-group { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 44px 0 10px; }
+  .faq-group:first-child { margin-top: 8px; }
 
   /* ---------- CONTACT ---------- */
   .contact-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; }
@@ -458,7 +465,6 @@
       <a class="navlink" data-page="home" href="#home">Home</a>
       <a class="navlink" data-page="about" href="#about">About Us</a>
       <a class="navlink" data-page="services" href="#services">Services</a>
-      <a class="navlink" data-page="support" href="#support">Support</a>
       <a class="navlink" data-page="payment" href="#payment">Payment</a>
       <a class="navlink" data-page="faqs" href="#faqs">FAQs</a>
       <a class="navlink" data-page="contact" href="#contact">Contact</a>
@@ -515,9 +521,8 @@
         <div class="hub-grid">
           <a class="hub-card" href="#about"><h3>About Us</h3><p>What makes us different and how we give back.</p><span class="go">Read more &rarr;</span></a>
           <a class="hub-card" href="#services"><h3>Services</h3><p>Repairs, cleaning, insurance and accounts, all under one roof.</p><span class="go">See services &rarr;</span></a>
-          <a class="hub-card" href="#support"><h3>Customer Support</h3><p>Debt recovery, homeowner guides and insurance claims.</p><span class="go">Get support &rarr;</span></a>
           <a class="hub-card" href="#payment"><h3>Make a Payment</h3><p>Ways to pay your account and how float and arrears are handled.</p><span class="go">View payment options &rarr;</span></a>
-          <a class="hub-card" href="#faqs"><h3>FAQs</h3><p>The float, selling your property, and payments that haven't shown yet.</p><span class="go">Read the FAQs &rarr;</span></a>
+          <a class="hub-card" href="#faqs"><h3>FAQs</h3><p>Paying your account, the float, selling your property and insurance claims.</p><span class="go">Read the FAQs &rarr;</span></a>
           <a class="hub-card" href="#contact"><h3>Contact Us</h3><p>Get a quote, reach your property manager, or find our office.</p><span class="go">Get in touch &rarr;</span></a>
         </div>
       </div>
@@ -626,50 +631,6 @@
     </section>
   </div>
 
-  <!-- ============ SUPPORT ============ -->
-  <div class="page" id="support" hidden>
-    <section class="tight" style="padding-top:52px;">
-      <div class="wrap">
-        <p class="eyebrow">Customer Support</p>
-        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:15ch;">Answers, before you have to ask twice.</h1>
-        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:58ch;">The most common reasons owners get in touch, answered up front.</p>
-      </div>
-    </section>
-    <section class="divider" style="padding-top:0;">
-      <div class="wrap">
-        <div class="accordion">
-          <details class="acc-item" open>
-            <summary>Debt Recovery
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
-            </summary>
-            <div class="acc-body">
-              <p>If an owner's account falls into arrears, we follow a fixed process: a friendly reminder, a formal notice, then, only if needed, referral for recovery. Interest and reasonable recovery costs may be added at that final stage.</p>
-              <p><strong>Struggling to pay?</strong> Contact us before a payment is missed. We can usually agree a short-term plan rather than let an account fall behind.</p>
-            </div>
-          </details>
-          <details class="acc-item">
-            <summary>Homeowner Guides
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
-            </summary>
-            <div class="acc-body">
-              <p>Plain-English guides cover the topics owners ask about most: what factoring actually covers, how the float works, how repairs get approved, and what happens when you sell your flat.</p>
-              <p>If you'd like a guide on a particular topic, ask your property manager and they'll send it to you.</p>
-            </div>
-          </details>
-          <details class="acc-item">
-            <summary>Insurance Claims
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
-            </summary>
-            <div class="acc-body">
-              <p>Report damage to common property as soon as it's found. We log the claim with the block insurer, arrange any necessary inspection, and keep owners updated until it's settled.</p>
-              <p>Claims on an individual flat's own contents are between the owner and their personal insurer. We can point you to the block policy documents if you need them.</p>
-            </div>
-          </details>
-        </div>
-      </div>
-    </section>
-  </div>
-
   <!-- ============ MAKE A PAYMENT ============ -->
   <div class="page" id="payment" hidden>
     <section class="tight" style="padding-top:52px;">
@@ -750,29 +711,55 @@
       <div class="wrap">
         <p class="eyebrow">FAQs</p>
         <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:15ch;">Common questions, plainly answered.</h1>
-        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:58ch;">Can't find what you're looking for? Email <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a> and we'll get back to you.</p>
+        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:58ch;">Can't find what you need? Email <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a> and we'll help, or send you a plain-English guide on the topic.</p>
       </div>
     </section>
     <section class="divider" style="padding-top:0;">
       <div class="wrap">
+        <h2 class="faq-group">Paying your account</h2>
         <div class="accordion">
-          <details class="acc-item" open>
-            <summary>What is the float?
-              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
-            </summary>
-            <div class="acc-body">
-              <p>The float is a one-off sum each owner pays when we start managing the building. It's held for the building so routine costs, like a repair or a cleaning bill, can be paid straight away without waiting for every owner to pay their share first.</p>
-              <p>It's usually due with your first invoice. If the float falls below the level agreed for your building, we'll ask owners to top it up.</p>
-              <p>The float still belongs to you. When you sell your property, it's returned to you once your final account is settled.</p>
-            </div>
-          </details>
           <details class="acc-item">
             <summary>How often will I be invoiced?
               <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
             </summary>
             <div class="acc-body">
-              <p>Your billing schedule is set out in your Written Statement of Services (WSS). Depending on your building, you'll be invoiced either monthly or quarterly.</p>
-              <p>If you don't have a copy of your WSS, email <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a> and we'll send one over.</p>
+              <p>It's set out in your Written Statement of Services (WSS): monthly or quarterly, depending on your building. Need a copy? Just ask.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>I've paid, but it isn't showing on my invoice.
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Payments made after an invoice is produced appear on the next one, and bank transfers can take a few working days.</p>
+              <p>If you paid before the invoice date and it's still missing, email <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a> with the date, amount and reference.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>What if I can't pay on time?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Get in touch before the payment is due. We can usually agree a short-term plan.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>What happens if an account isn't paid?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>We send a reminder, then a formal notice. Only if it's still unpaid is the account referred for recovery, and interest and reasonable recovery costs may then be added.</p>
+            </div>
+          </details>
+        </div>
+        <h2 class="faq-group">The float and selling</h2>
+        <div class="accordion">
+          <details class="acc-item">
+            <summary>What is the float?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>A one-off sum each owner pays, held for the building so routine costs can be paid straight away. It's usually due with your first invoice and topped up if it runs low. It still belongs to you.</p>
             </div>
           </details>
           <details class="acc-item">
@@ -780,19 +767,27 @@
               <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
             </summary>
             <div class="acc-body">
-              <p>Let us know as soon as you have a sale date, along with your solicitor's details. Until we're told about the sale, the account stays in your name.</p>
-              <p>We'll prepare a final account up to your date of entry, covering any charges for work and services up to that date.</p>
-              <p>Once your final account is settled, we'll return your float to you.</p>
+              <p>Tell us your sale date and your solicitor's details. Until we know about the sale, the account stays in your name.</p>
+              <p>We'll prepare a final account up to your date of entry and return your float once it's settled.</p>
             </div>
           </details>
+        </div>
+        <h2 class="faq-group">Repairs and insurance</h2>
+        <div class="accordion">
           <details class="acc-item">
-            <summary>I've made a payment but it isn't showing on my invoice.
+            <summary>How do I report damage to the common parts?
               <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
             </summary>
             <div class="acc-body">
-              <p>Payments made after an invoice was produced won't appear on that invoice. They'll show on your next one.</p>
-              <p>Bank transfers can also take a few working days to reach us, especially over weekends and bank holidays.</p>
-              <p>If you paid before the invoice date and it still isn't showing, email <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a> with the date, amount and reference you used, and we'll look into it.</p>
+              <p>Email <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a> as soon as you spot it. If it's an insurance matter, we log the claim with the block insurer, arrange any inspection and keep you updated until it's settled.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>What about damage inside my own flat?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Claims for your own flat's contents go through your personal insurer. If you need the block policy documents, we can send them.</p>
             </div>
           </details>
         </div>
@@ -887,7 +882,6 @@
       <div class="footer-col">
         <h5>Owners</h5>
         <ul>
-          <li><a href="#support">Support</a></li>
           <li><a href="#payment">Make a payment</a></li>
           <li><a href="#faqs">FAQs</a></li>
         </ul>
@@ -914,6 +908,7 @@
 
     function showPage(hash) {
       var id = (hash || '').replace('#', '');
+      if (id === 'support') id = 'faqs';
       if (validIds.indexOf(id) === -1) id = 'home';
       pages.forEach(function (p) { p.hidden = p.id !== id; });
       navLinks.forEach(function (a) {
