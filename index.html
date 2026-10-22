@@ -416,7 +416,7 @@
   @media (max-width: 640px) { .contact-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } }
 
   /* ---------- PAYMENT ---------- */
-  .pay-methods { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+  .pay-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
   .pay-method { border: 1px solid var(--line); border-radius: 10px; padding: 20px; display: grid; gap: 8px; }
   .pay-method .glyph { width: 24px; height: 24px; color: var(--accent); }
   .pay-method h4 { font-size: 14.5px; }
@@ -742,19 +742,14 @@
       <div class="wrap">
         <div class="pay-methods">
           <div class="pay-method">
-            <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="6" width="20" height="14" rx="2"></rect><path d="M2 10h20M6 15h4"></path></svg>
-            <h4>Direct debit</h4>
-            <p>Set once, taken automatically each period. The simplest way to stay ahead of arrears.</p>
-          </div>
-          <div class="pay-method">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 12h16M15 6l6 6-6 6"></path></svg>
             <h4>Bank transfer</h4>
-            <p>Pay by BACS or online banking, using the account reference found on every invoice.</p>
+            <p>Pay by BACS or online banking, using the bank details and account reference shown on your invoice.</p>
           </div>
           <div class="pay-method">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 9h18"></path></svg>
-            <h4>Card, online</h4>
-            <p>Pay a single invoice or top up your float by debit or credit card through My ClearFactor.</p>
+            <h4>Debit or credit card</h4>
+            <p>Get in touch and we'll take a card payment over the phone or send you a secure payment link.</p>
           </div>
           <div class="pay-method">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 3"></path></svg>
@@ -769,7 +764,15 @@
               <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
             </summary>
             <div class="acc-body">
-              <p>Direct debit is our recommended method. Set it up once through My ClearFactor and you'll never miss a due date. One-off payments can be made by card online, or by bank transfer using the reference on your invoice.</p>
+              <p>You can pay by bank transfer using the bank details and reference on your invoice, or by debit or credit card. For card payments, email <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a> and we'll take payment by phone or send a secure link. Always quote your account reference so your payment is matched to your account straight away.</p>
+            </div>
+          </details>
+          <details class="acc-item">
+            <summary>Protecting yourself from fraud
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Only use the bank details printed on your ClearFactor invoice. We will never email, text or phone you to tell you our bank details have changed. If you receive a message like this, don't make the payment &mdash; contact us on <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a> to check first.</p>
             </div>
           </details>
           <details class="acc-item">
@@ -783,7 +786,7 @@
         </div>
 
         <div style="margin-top:40px;">
-          <a class="btn btn-navy" href="#portal">Make a payment in My ClearFactor</a>
+          <a class="btn btn-navy" href="#contact">Contact us about a payment</a>
         </div>
       </div>
     </section>
