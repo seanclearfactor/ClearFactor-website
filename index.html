@@ -280,6 +280,10 @@
   .hero h1 { font-size: clamp(36px, 5.4vw, 58px); color: var(--on-navy); max-width: 15ch; text-shadow: 0 2px 18px rgba(4,12,30,.5); }
   .hero-kicker { max-width: 50ch; font-size: 19px; font-weight: 600; color: var(--on-navy); text-shadow: 0 1px 12px rgba(4,12,30,.5); }
   .hero-lede { max-width: 58ch; font-size: 17px; color: var(--on-navy-soft); margin-top: 18px; text-shadow: 0 1px 12px rgba(4,12,30,.5); }
+  .hero--page { min-height: 460px; }
+  .hero--page .hero-photo { animation: none; opacity: 1; }
+  .hero--page .hero-scrim { background: linear-gradient(100deg, rgba(8,20,45,.82) 0%, rgba(8,20,45,.55) 42%, rgba(8,20,45,.12) 75%, rgba(8,20,45,0) 100%); }
+  .hero .eyebrow { color: #8fd0f5; text-shadow: 0 1px 10px rgba(4,12,30,.5); }
   .hero-cta { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
 
   .stat-strip {
@@ -530,11 +534,15 @@
 
   <!-- ============ ABOUT ============ -->
   <div class="page" id="about" hidden>
-    <section class="tight" style="padding-top:52px;">
-      <div class="wrap">
+    <section class="hero hero--page">
+      <div class="hero-photos" aria-hidden="true">
+        <div class="hero-photo" style="background-image:url('assets/about-autumn.jpg'); background-position:center 22%;"></div>
+      </div>
+      <div class="hero-scrim" aria-hidden="true"></div>
+      <div class="wrap hero-top">
         <p class="eyebrow">About Us</p>
-        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:16ch;">The factor owners have been waiting for.</h1>
-        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:60ch;">We started ClearFactor because owners shouldn't have to chase their factor for answers. So we built one that works the other way round: clear invoices, quick replies, and a full record of what's spent on your building and why. We look after your common parts as if we lived in the flat next door.</p>
+        <h1 style="margin-top:12px; max-width:16ch;">The factor owners have been waiting for.</h1>
+        <p class="hero-lede">We started ClearFactor because owners shouldn't have to chase their factor for answers. So we built one that works the other way round: clear invoices, quick replies, and a full record of what's spent on your building and why. We look after your common parts as if we lived in the flat next door.</p>
       </div>
     </section>
 
