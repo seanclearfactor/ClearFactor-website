@@ -1,3 +1,12 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="ClearFactor is a property factor for homeowners, residents' associations and developers across Scotland. Clear costs, quick answers and repairs seen through to the finish.">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0a0e17" media="(prefers-color-scheme: dark)">
+<meta name="format-detection" content="telephone=no">
 <title>ClearFactor</title>
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
@@ -113,9 +122,17 @@
     position: sticky;
     top: 0;
     z-index: 50;
-    background: color-mix(in srgb, var(--ground) 90%, transparent);
-    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--line);
+  }
+  /* Blur lives on a pseudo-element so it doesn't trap the fixed-position mobile menu inside the header */
+  header.nav::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: color-mix(in srgb, var(--ground) 90%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
   }
   .nav-row {
     display: flex;
@@ -193,14 +210,18 @@
     color: var(--ink);
   }
   .menu-toggle svg { width: 18px; height: 18px; }
+  .menu-toggle .icon-close { display: none; }
+  body.menu-open .menu-toggle .icon-open { display: none; }
+  body.menu-open .menu-toggle .icon-close { display: block; }
 
   @media (max-width: 920px) {
     nav.links { display: none; }
-    .menu-toggle { display: flex; }
+    .menu-toggle { display: flex; width: 44px; height: 44px; }
+    body.menu-open { overflow: hidden; }
     body.menu-open nav.links.mobile-open {
       display: flex;
       position: fixed;
-      inset: 61px 0 0 0;
+      inset: var(--nav-h, 73px) 0 0 0;
       background: var(--ground);
       flex-direction: column;
       align-items: stretch;
@@ -213,7 +234,8 @@
   }
 
   /* ---------- PAGE / SECTION SCAFFOLDING ---------- */
-  .page { }
+  /* Stops the browser's #link jump from tucking the top of the page under the sticky header */
+  .page { scroll-margin-top: var(--nav-h, 73px); }
   section { padding-block: 68px; }
   section.tight { padding-block: 44px; }
   .band { background: var(--navy); color: var(--on-navy); }
@@ -259,6 +281,23 @@
   .hero-photo:nth-child(4) { animation-delay: 30s; }
   .hero-photo:nth-child(5) { animation-delay: 40s; }
   .hero-photo:nth-child(6) { animation-delay: 50s; }
+  .hp-glasgow     { background-image: url('assets/hero-glasgow.jpg'); }
+  .hp-kelvingrove { background-image: url('assets/hero-kelvingrove.jpg'); }
+  .hp-edinburgh   { background-image: url('assets/hero-edinburgh.jpg'); }
+  .hp-forth       { background-image: url('assets/hero-forth-bridge.jpg'); }
+  .hp-standrews   { background-image: url('assets/hero-st-andrews.jpg'); background-position: center 35%; }
+  .hp-dundee      { background-image: url('assets/hero-dundee.jpg'); }
+  .hp-autumn      { background-image: url('assets/about-autumn.jpg'); background-position: center 22%; }
+  /* Lighter photos for phones and small tablets */
+  @media (max-width: 820px) {
+    .hp-glasgow     { background-image: url('assets/mobile/hero-glasgow.jpg'); }
+    .hp-kelvingrove { background-image: url('assets/mobile/hero-kelvingrove.jpg'); }
+    .hp-edinburgh   { background-image: url('assets/mobile/hero-edinburgh.jpg'); }
+    .hp-forth       { background-image: url('assets/mobile/hero-forth-bridge.jpg'); }
+    .hp-standrews   { background-image: url('assets/mobile/hero-st-andrews.jpg'); }
+    .hp-dundee      { background-image: url('assets/mobile/hero-dundee.jpg'); }
+    .hp-autumn      { background-image: url('assets/mobile/about-autumn.jpg'); }
+  }
   @keyframes heroFade {
     0%    { opacity: 0; transform: scale(1); }
     2.5%  { opacity: 1; }
@@ -456,8 +495,69 @@
   @media (max-width: 760px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
 
+  /* ---------- TOUCH DEVICES ---------- */
+  @media (hover: none) {
+    .hub-card:hover { transform: none; border-color: var(--line); }
+  }
+
+  /* ---------- PHONES ---------- */
+  @media (max-width: 640px) {
+    .wrap { padding-inline: 20px; }
+    section { padding-block: 48px; }
+    section.tight { padding-block: 32px; }
+    .section-head { margin-bottom: 28px; }
+
+    .nav-row { padding-block: 12px; }
+
+    .hero { min-height: 0; }
+    .hero--page { min-height: 0; }
+    .hero-top { padding-block: 56px 48px; }
+    /* Text spans the full width on a phone, so darken the whole photo evenly */
+    .hero-scrim,
+    .hero--page .hero-scrim { background: linear-gradient(180deg, rgba(8,20,45,.72) 0%, rgba(8,20,45,.62) 55%, rgba(8,20,45,.78) 100%); }
+    .hero h1 { font-size: clamp(32px, 9vw, 40px); }
+    .hero-kicker { font-size: 17px; margin-top: 18px !important; }
+    .hero-lede { font-size: 16px; }
+    .hero-cta { margin-top: 26px; }
+    .hero-cta .btn { flex: 1 1 100%; justify-content: center; padding-block: 13px; }
+    .hero-cta .btn-outline-on-navy { border-color: rgba(255,255,255,.55); }
+
+    .stat { padding: 24px 20px; }
+    .stat .num { font-size: 21px; }
+    .stat .lbl { font-size: 14.5px; }
+
+    .hub-grid, .services-grid { gap: 14px; }
+    .hub-card { padding: 22px 20px; }
+    .service-card { padding: 22px 20px; }
+    .diff-card { padding: 22px 20px; }
+    .csr-grid { gap: 14px; }
+    .csr-card { padding: 20px; }
+
+    .page h1 { font-size: clamp(30px, 8.4vw, 36px) !important; }
+    .page section.tight p { font-size: 16px !important; }
+
+    details.acc-item summary { padding: 18px 2px; font-size: 16px; }
+    .acc-body { padding: 0 2px 20px; }
+    .faq-group { margin-top: 34px; }
+
+    .contact-grid { gap: 32px; }
+    /* 16px stops iPhones zooming in when a field is tapped */
+    .field input, .field select, .field textarea { font-size: 16px; padding: 12px 13px; }
+    form.contact-form .btn { justify-self: stretch !important; justify-content: center; padding-block: 13px; }
+
+    .page .btn-navy, .page .btn-ghost { flex: 1 1 100%; justify-content: center; }
+
+    footer.band { padding-block: 36px calc(26px + env(safe-area-inset-bottom)); }
+    .footer-grid { gap: 26px; }
+    .footer-bottom { flex-direction: column; gap: 6px; }
+  }
+
+  a[href^="mailto:"] { overflow-wrap: anywhere; }
+
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
+</head>
+<body>
 
 <header class="nav">
   <div class="wrap nav-row">
@@ -475,7 +575,8 @@
     </nav>
     <div class="nav-actions">
       <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        <svg class="icon-open" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        <svg class="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"></path></svg>
       </button>
     </div>
   </div>
@@ -487,12 +588,12 @@
   <div class="page" id="home">
     <section class="hero">
       <div class="hero-photos" aria-hidden="true">
-        <div class="hero-photo" style="background-image:url('assets/hero-glasgow.jpg')"></div>
-        <div class="hero-photo" style="background-image:url('assets/hero-kelvingrove.jpg')"></div>
-        <div class="hero-photo" style="background-image:url('assets/hero-edinburgh.jpg')"></div>
-        <div class="hero-photo" style="background-image:url('assets/hero-forth-bridge.jpg')"></div>
-        <div class="hero-photo" style="background-image:url('assets/hero-st-andrews.jpg'); background-position:center 35%;"></div>
-        <div class="hero-photo" style="background-image:url('assets/hero-dundee.jpg')"></div>
+        <div class="hero-photo hp-glasgow"></div>
+        <div class="hero-photo hp-kelvingrove"></div>
+        <div class="hero-photo hp-edinburgh"></div>
+        <div class="hero-photo hp-forth"></div>
+        <div class="hero-photo hp-standrews"></div>
+        <div class="hero-photo hp-dundee"></div>
       </div>
       <div class="hero-scrim" aria-hidden="true"></div>
       <div class="wrap hero-top">
@@ -536,7 +637,7 @@
   <div class="page" id="about" hidden>
     <section class="hero hero--page">
       <div class="hero-photos" aria-hidden="true">
-        <div class="hero-photo" style="background-image:url('assets/about-autumn.jpg'); background-position:center 22%;"></div>
+        <div class="hero-photo hp-autumn"></div>
       </div>
       <div class="hero-scrim" aria-hidden="true"></div>
       <div class="wrap hero-top">
@@ -928,12 +1029,34 @@
 
     var nav = document.getElementById('primaryNav');
     var toggle = document.getElementById('menuToggle');
+    var header = document.querySelector('header.nav');
+
+    function setNavHeight() {
+      if (header) document.documentElement.style.setProperty('--nav-h', header.offsetHeight + 'px');
+    }
+    function setMenu(open) {
+      document.body.classList.toggle('menu-open', open);
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+
+    setNavHeight();
+    window.addEventListener('resize', function () {
+      setNavHeight();
+      if (window.innerWidth > 920) setMenu(false);
+    });
+
     if (toggle && nav) {
       nav.classList.add('mobile-open');
       toggle.addEventListener('click', function () {
-        var open = document.body.classList.toggle('menu-open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        setNavHeight();
+        setMenu(!document.body.classList.contains('menu-open'));
       });
+      // Close the menu after tapping a link, even the page you're already on
+      navLinks.forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
     }
   })();
 </script>
+</body>
+</html>
