@@ -469,6 +469,17 @@
   }
   .field textarea { resize: vertical; min-height: 96px; font-family: "Public Sans", sans-serif; }
   @media (max-width: 640px) { .contact-grid { grid-template-columns: 1fr; } .form-row { grid-template-columns: 1fr; } }
+  .hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .form-status { font-size: 15px; padding: 12px 14px; border-radius: 7px; border: 1px solid var(--line); }
+  .form-status.ok { border-color: #2e8b57; color: #1f6b41; background: rgba(46,139,87,.08); }
+  .form-status.err { border-color: #c0392b; color: #a12d22; background: rgba(192,57,43,.07); }
+  :root[data-theme="dark"] .form-status.ok { color: #7fd1a1; }
+  :root[data-theme="dark"] .form-status.err { color: #f0a097; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .form-status.ok { color: #7fd1a1; }
+    :root:not([data-theme="light"]) .form-status.err { color: #f0a097; }
+  }
+  button[disabled] { opacity: .6; cursor: progress; }
 
   /* ---------- PAYMENT ---------- */
   .pay-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -922,7 +933,11 @@
             </div>
           </div>
         </div>
-        <form class="contact-form" action="mailto:enquiries@clearfactor.co.uk" method="post" enctype="text/plain">
+        <form class="contact-form" id="enquiryForm" action="https://formsubmit.co/enquiries@clearfactor.co.uk" method="post">
+          <input type="hidden" name="_subject" value="New website enquiry">
+          <input type="hidden" name="_template" value="table">
+          <input type="hidden" name="_next" value="https://clearfactor.co.uk/#contact">
+          <input type="text" name="_honey" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
           <div class="form-row">
             <div class="field">
               <label for="cf-name">Name</label>
@@ -958,6 +973,7 @@
             <textarea id="cf-message" name="message" placeholder="e.g. current factor is retiring, self-managed and want support, roof repair needed..."></textarea>
           </div>
           <button class="btn btn-navy" type="submit" style="justify-self:start; margin-top:4px;">Send enquiry</button>
+          <p class="form-status" id="enquiryStatus" role="status" aria-live="polite" hidden></p>
         </form>
       </div>
     </section>
@@ -1055,6 +1071,65 @@
       // Close the menu after tapping a link, even the page you're already on
       navLinks.forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+    }
+
+    // Enquiry form: send in the background and email it straight to the enquiries inbox
+    var form = document.getElementById('enquiryForm');
+    var status = document.getElementById('enquiryStatus');
+    if (form && window.fetch) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var els = form.elements;
+        if (els.namedItem('_honey') && els.namedItem('_honey').value) return; // spam bot
+        var btn = form.querySelector('button[type="submit"]');
+        var val = function (n) { var el = els.namedItem(n); return (el && el.value || '').trim(); };
+
+        var subject = 'New website enquiry: ' + val('name') + ' (' + val('role') + ')';
+        if (val('address')) subject += ' - ' + val('address');
+
+        var data = {
+          _subject: subject,
+          _template: 'table',
+          _replyto: val('email'),
+          _honey: '',
+          'Name': val('name'),
+          'Email': val('email'),
+          'I am a': val('role'),
+          'Number of flats': val('flats') || 'Not given',
+          'Property address': val('address') || 'Not given',
+          'Message': val('message') || 'No message'
+        };
+
+        btn.disabled = true;
+        var label = btn.textContent;
+        btn.textContent = 'Sending...';
+        status.hidden = true;
+
+        fetch('https://formsubmit.co/ajax/enquiries@clearfactor.co.uk', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify(data)
+        })
+          .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, body: j }; }); })
+          .then(function (res) {
+            if (res.ok && String(res.body.success) === 'true') {
+              form.reset();
+              status.className = 'form-status ok';
+              status.textContent = 'Thanks, ' + data.Name.split(' ')[0] + '. Your enquiry has been sent to our team and we’ll be in touch shortly.';
+            } else {
+              throw new Error('send failed');
+            }
+          })
+          .catch(function () {
+            status.className = 'form-status err';
+            status.innerHTML = 'Sorry, your enquiry couldn’t be sent just now. Please try again, or email us at <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a>.';
+          })
+          .then(function () {
+            status.hidden = false;
+            btn.disabled = false;
+            btn.textContent = label;
+          });
+      });
     }
   })();
 </script>
