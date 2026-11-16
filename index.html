@@ -13,7 +13,9 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Public+Sans:wght@400;500;600;700&display=swap');
+  /* Fonts are hosted on this site (not Google), so visitors' details aren't sent to a third party */
+  @font-face { font-family: "Manrope"; src: url("assets/fonts/manrope.woff2") format("woff2"); font-weight: 200 800; font-style: normal; font-display: swap; }
+  @font-face { font-family: "Public Sans"; src: url("assets/fonts/public-sans.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
 
   :root {
     --ground: #ffffff;
@@ -109,7 +111,7 @@
     font-size: 12.5px;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--accent);
+    color: var(--accent-strong);
   }
 
   [hidden] { display: none !important; }
@@ -445,7 +447,7 @@
   details.acc-item[open] summary .chev { transform: rotate(45deg); }
   .acc-body { padding: 0 4px 24px; color: var(--ink-soft); font-size: 15px; max-width: 68ch; display: grid; gap: 10px; }
   .acc-body strong { color: var(--ink); }
-  .faq-group { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 44px 0 10px; }
+  .faq-group { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-strong); margin: 44px 0 10px; }
   .faq-group:first-child { margin-top: 8px; }
 
   /* ---------- CONTACT ---------- */
@@ -454,7 +456,7 @@
   .office-card { border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; }
   .office-card h4 { font-size: 15px; }
   .office-card p { font-size: 14px; color: var(--ink-soft); margin-top: 4px; }
-  .contact-detail dt { font-family: "Public Sans", sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-faint); }
+  .contact-detail dt { font-family: "Public Sans", sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-soft); }
   .contact-detail dd { margin: 4px 0 0; font-size: 15.5px; }
   .contact-detail a { text-decoration: none; border-bottom: 1px solid var(--line); }
   .contact-detail a:hover { border-color: var(--accent); color: var(--accent-strong); }
@@ -480,6 +482,81 @@
     :root:not([data-theme="light"]) .form-status.err { color: #f0a097; }
   }
   button[disabled] { opacity: .6; cursor: progress; }
+
+  /* ---------- STEP-BY-STEP ENQUIRY FORM ---------- */
+  .wz-card {
+    background: var(--ground); border: 1px solid var(--line); border-radius: 16px;
+    padding: 28px 30px 30px; box-shadow: 0 1px 2px rgba(15,23,38,.04), 0 12px 32px -12px rgba(15,23,38,.12);
+    align-self: start;
+  }
+  form.wizard { display: grid; gap: 22px; }
+  .wz-progress { display: grid; gap: 9px; }
+  .wz-meta { display: flex; justify-content: space-between; font-size: 13px; font-weight: 600; color: var(--ink-soft); }
+  .wz-track { height: 6px; border-radius: 99px; background: var(--surface-2); overflow: hidden; }
+  .wz-fill { height: 100%; width: 0; border-radius: inherit; background: linear-gradient(90deg, var(--accent-strong), var(--accent)); transition: width .35s cubic-bezier(.4,0,.2,1); }
+  .wz-step { border: 0; margin: 0; padding: 0; min-width: 0; display: grid; gap: 14px; animation: wzIn .28s ease both; }
+  .wz-step.back { animation-name: wzInBack; }
+  @keyframes wzIn { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+  @keyframes wzInBack { from { opacity: 0; transform: translateX(-14px); } to { opacity: 1; transform: none; } }
+  .wz-q { font-family: "Manrope", sans-serif; font-weight: 800; font-size: clamp(21px, 2.4vw, 25px); line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); padding: 0; margin-bottom: 6px; }
+  .wz-q:focus { outline: none; }
+  .wz-hint { font-size: 14.5px; color: var(--ink-soft); }
+  .wz-options { display: grid; gap: 10px; }
+  .wz-options--grid { grid-template-columns: 1fr 1fr; }
+  .wz-opt {
+    position: relative; display: flex; align-items: center; gap: 12px; cursor: pointer;
+    padding: 15px 16px; border: 1.5px solid var(--line); border-radius: 12px; background: var(--ground);
+    transition: border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .wz-opt:hover { border-color: var(--accent); }
+  .wz-opt:active { transform: scale(.99); }
+  .wz-opt input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .wz-opt-body { display: grid; gap: 2px; flex: 1; }
+  .wz-opt-title { font-weight: 700; font-size: 15.5px; color: var(--ink); }
+  .wz-opt-sub { font-size: 13.5px; color: var(--ink-soft); }
+  .wz-chev { width: 18px; height: 18px; color: var(--ink-faint); flex-shrink: 0; transition: transform .15s ease, color .15s ease; }
+  .wz-opt:hover .wz-chev { transform: translateX(2px); color: var(--accent-strong); }
+  .wz-opt:has(input:checked) { border-color: var(--accent-strong); background: var(--accent-tint); }
+  .wz-opt:has(input:checked) .wz-chev { color: var(--accent-strong); }
+  .wz-opt:has(input:focus-visible) { outline: 2px solid var(--focus); outline-offset: 2px; }
+  .wz-options--grid .wz-opt-title { font-size: 15px; }
+  .wz-error, .wz-field-error { font-size: 13.5px; font-weight: 600; color: #a12d22; }
+  .wz-step .field input, .wz-step .field textarea { background: var(--ground); border-radius: 10px; border-width: 1.5px; }
+  .wz-step .field input:focus, .wz-step .field textarea:focus { border-color: var(--accent-strong); outline: none; box-shadow: 0 0 0 3px var(--accent-tint); }
+  .wz-step .field [aria-invalid="true"] { border-color: #c0392b; }
+  .field label .opt { font-weight: 500; color: var(--ink-soft); }
+  .wz-privacy { font-size: 13px; color: var(--ink-soft); }
+  .wz-nav { display: flex; justify-content: space-between; gap: 12px; }
+  .wz-nav #wzNext { margin-left: auto; min-width: 140px; justify-content: center; }
+  .wz-done { text-align: center; padding: 28px 8px 18px; display: grid; gap: 12px; justify-items: center; animation: wzIn .3s ease both; }
+  .wz-done:focus { outline: none; }
+  .wz-done-icon { width: 56px; height: 56px; border-radius: 50%; display: grid; place-items: center; background: var(--accent-tint); color: var(--accent-strong); }
+  .wz-done-icon svg { width: 28px; height: 28px; }
+  .wz-done h2 { font-size: 24px; }
+  .wz-done p { color: var(--ink-soft); max-width: 36ch; }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .wz-error, :root:not([data-theme="light"]) .wz-field-error { color: #f0a097; }
+    :root:not([data-theme="light"]) .wz-card { box-shadow: none; background: var(--surface); }
+  }
+  @media (max-width: 640px) {
+    .wz-card { padding: 22px 18px 22px; border-radius: 14px; }
+    .wz-options--grid { grid-template-columns: 1fr 1fr; }
+    .wz-opt { padding: 14px; }
+    .wz-nav .btn { padding-block: 13px; }
+    .wz-nav #wzNext { flex: 1; }
+  }
+
+  /* ---------- LEGAL PAGES ---------- */
+  .legal { max-width: 72ch; }
+  .legal h2 { font-size: 21px; margin: 34px 0 10px; }
+  .legal p, .legal li { color: var(--ink-soft); font-size: 15.5px; }
+  .legal p + p { margin-top: 10px; }
+  .legal ul { list-style: disc; padding-left: 22px; display: grid; gap: 6px; margin-top: 10px; }
+  .legal .updated { font-size: 14px; color: var(--ink-soft); }
+
+  /* ---------- SKIP LINK ---------- */
+  .skip-link { position: absolute; left: 12px; top: -60px; z-index: 100; background: var(--navy); color: var(--on-navy); padding: 10px 14px; border-radius: 8px; text-decoration: none; font-weight: 600; }
+  .skip-link:focus { top: 12px; }
 
   /* ---------- PAYMENT ---------- */
   .pay-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
@@ -570,6 +647,8 @@
 </head>
 <body>
 
+<a class="skip-link" href="#main" id="skipLink">Skip to content</a>
+
 <header class="nav">
   <div class="wrap nav-row">
     <a class="brand" href="#home">
@@ -593,7 +672,7 @@
   </div>
 </header>
 
-<main>
+<main id="main" tabindex="-1">
 
   <!-- ============ HOME ============ -->
   <div class="page" id="home">
@@ -729,7 +808,7 @@
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.4 8.4-8 9-4.6-.6-8-4-8-9V6l8-3z"></path></svg>
             <h3>Buildings insurance</h3>
-            <p>Block cover arranged through a specialist broker and reviewed every year, with an excellent claims handling service managed on your behalf.</p>
+            <p>Block cover arranged through a specialist broker and reviewed every year, with any claims managed on your behalf from start to finish.</p>
           </div>
           <div class="service-card">
             <svg class="glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"></rect><path d="M3 10h18M7 15h4"></path></svg>
@@ -906,6 +985,18 @@
             </div>
           </details>
         </div>
+        <h2 class="faq-group">Complaints</h2>
+        <div class="accordion">
+          <details class="acc-item">
+            <summary>How do I make a complaint?
+              <svg class="chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"></path></svg>
+            </summary>
+            <div class="acc-body">
+              <p>Email <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a> and tell us what's gone wrong. Our complaints procedure, including how long each stage takes, is set out in your Written Statement of Services, and we can send you a copy at any time.</p>
+              <p>If you're still unhappy once our procedure is complete, or we haven't replied within the timescale it sets out, you can apply to the <a href="https://www.housingandpropertychamber.scot/" target="_blank" rel="noopener">First-tier Tribunal for Scotland (Housing and Property Chamber)</a>.</p>
+            </div>
+          </details>
+        </div>
       </div>
     </section>
   </div>
@@ -916,14 +1007,14 @@
       <div class="wrap">
         <p class="eyebrow">Contact Us</p>
         <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:14ch;">Talk to us about your building.</h1>
-        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:56ch;">Appointing a factor for the first time, or moving on from one? Send the details and we'll come back with a written quote.</p>
+        <p style="color:var(--ink-soft); font-size:17px; margin-top:18px; max-width:56ch;">Answer a few quick questions and we'll come back to you with a written quote or the answer you need. It takes about a minute.</p>
       </div>
     </section>
     <section class="divider" style="padding-top:0;">
       <div class="wrap contact-grid">
         <div class="contact-info">
           <dl class="contact-detail">
-            <dt>Enquiries</dt>
+            <dt>Prefer to email?</dt>
             <dd><a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a></dd>
           </dl>
           <div style="display:grid; gap:14px; margin-top:8px;">
@@ -933,45 +1024,259 @@
             </div>
           </div>
         </div>
-        <form class="contact-form" id="enquiryForm">
-          <input type="text" name="company_website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <div class="form-row">
+
+        <div class="wz-card">
+          <form class="wizard" id="enquiryForm" novalidate>
+            <input type="text" name="company_website" class="hp-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <div class="wz-progress">
+              <div class="wz-meta"><span id="wzStepLabel">Step 1 of 6</span></div>
+              <div class="wz-track" id="wzTrack" role="progressbar" aria-label="Form progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="wz-fill" id="wzFill"></div></div>
+            </div>
+
+          <fieldset class="wz-step" data-step="type" hidden>
+            <legend class="wz-q" tabindex="-1">What can we help you with?</legend>
+            <p class="wz-hint">Tap the option that fits best.</p>
+            <div class="wz-options">
+              <label class="wz-opt"><input type="radio" name="enquiry_type" value="quote"><span class="wz-opt-body"><span class="wz-opt-title">A quote for my building</span><span class="wz-opt-sub">Switching factor, or appointing one for the first time</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="enquiry_type" value="development"><span class="wz-opt-body"><span class="wz-opt-title">A new-build development</span><span class="wz-opt-sub">For developers and housebuilders</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="enquiry_type" value="owner"><span class="wz-opt-body"><span class="wz-opt-title">I'm already a ClearFactor owner</span><span class="wz-opt-sub">Repairs, payments, selling or insurance</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="enquiry_type" value="other"><span class="wz-opt-body"><span class="wz-opt-title">Something else</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+            </div>
+            <p class="wz-error" role="alert" hidden>Please choose an option to continue.</p>
+          </fieldset>
+          <fieldset class="wz-step" data-step="role" hidden>
+            <legend class="wz-q" tabindex="-1">Which best describes you?</legend>
+            <p class="wz-hint">Tap the option that fits best.</p>
+            <div class="wz-options">
+              <label class="wz-opt"><input type="radio" name="role" value="Homeowner"><span class="wz-opt-body"><span class="wz-opt-title">Homeowner</span><span class="wz-opt-sub">I own a flat or home in the building</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="role" value="Residents' association or committee"><span class="wz-opt-body"><span class="wz-opt-title">Residents’ association</span><span class="wz-opt-sub">Or another owners’ committee</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="role" value="Landlord"><span class="wz-opt-body"><span class="wz-opt-title">Landlord</span><span class="wz-opt-sub">I let out a property in the building</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="role" value="Other"><span class="wz-opt-body"><span class="wz-opt-title">Other</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+            </div>
+            <p class="wz-error" role="alert" hidden>Please choose an option to continue.</p>
+          </fieldset>
+          <fieldset class="wz-step" data-step="current" hidden>
+            <legend class="wz-q" tabindex="-1">Does the building have a factor just now?</legend>
+            <p class="wz-hint">Tap the option that fits best.</p>
+            <div class="wz-options">
+              <label class="wz-opt"><input type="radio" name="current_factor" value="Yes, it has a factor"><span class="wz-opt-body"><span class="wz-opt-title">Yes, we have a factor</span><span class="wz-opt-sub">We’re thinking of switching</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="current_factor" value="No, self-managed"><span class="wz-opt-body"><span class="wz-opt-title">No, we manage it ourselves</span><span class="wz-opt-sub">Or it’s never had one</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="current_factor" value="Not sure"><span class="wz-opt-body"><span class="wz-opt-title">Not sure</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+            </div>
+            <p class="wz-error" role="alert" hidden>Please choose an option to continue.</p>
+          </fieldset>
+          <fieldset class="wz-step" data-step="size" hidden>
+            <legend class="wz-q" tabindex="-1">How many flats or homes share the building?</legend>
+            <p class="wz-hint">A rough number is fine.</p>
+            <div class="wz-options wz-options--grid">
+              <label class="wz-opt"><input type="radio" name="units" value="2 to 6"><span class="wz-opt-body"><span class="wz-opt-title">2 to 6</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="units" value="7 to 12"><span class="wz-opt-body"><span class="wz-opt-title">7 to 12</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="units" value="13 to 24"><span class="wz-opt-body"><span class="wz-opt-title">13 to 24</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="units" value="25 or more"><span class="wz-opt-body"><span class="wz-opt-title">25 or more</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="units" value="Not sure"><span class="wz-opt-body"><span class="wz-opt-title">Not sure</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+            </div>
+            <p class="wz-error" role="alert" hidden>Please choose an option to continue.</p>
+          </fieldset>
+          <fieldset class="wz-step" data-step="dev_stage" hidden>
+            <legend class="wz-q" tabindex="-1">Where is the development at?</legend>
+            <p class="wz-hint">Tap the option that fits best.</p>
+            <div class="wz-options wz-options--grid">
+              <label class="wz-opt"><input type="radio" name="dev_stage" value="In planning"><span class="wz-opt-body"><span class="wz-opt-title">In planning</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="dev_stage" value="Under construction"><span class="wz-opt-body"><span class="wz-opt-title">Under construction</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="dev_stage" value="First handovers soon"><span class="wz-opt-body"><span class="wz-opt-title">First handovers coming up</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="dev_stage" value="Already completed"><span class="wz-opt-body"><span class="wz-opt-title">Already completed</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+            </div>
+            <p class="wz-error" role="alert" hidden>Please choose an option to continue.</p>
+          </fieldset>
+          <fieldset class="wz-step" data-step="dev_size" hidden>
+            <legend class="wz-q" tabindex="-1">How many homes in total?</legend>
+            <p class="wz-hint">Across all phases, roughly.</p>
+            <div class="wz-options wz-options--grid">
+              <label class="wz-opt"><input type="radio" name="dev_units" value="Under 20"><span class="wz-opt-body"><span class="wz-opt-title">Under 20</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="dev_units" value="20 to 50"><span class="wz-opt-body"><span class="wz-opt-title">20 to 50</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="dev_units" value="51 to 150"><span class="wz-opt-body"><span class="wz-opt-title">51 to 150</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="dev_units" value="Over 150"><span class="wz-opt-body"><span class="wz-opt-title">Over 150</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+            </div>
+            <p class="wz-error" role="alert" hidden>Please choose an option to continue.</p>
+          </fieldset>
+          <fieldset class="wz-step" data-step="owner_topic" hidden>
+            <legend class="wz-q" tabindex="-1">What's it about?</legend>
+            <p class="wz-hint">Tap the option that fits best.</p>
+            <div class="wz-options">
+              <label class="wz-opt"><input type="radio" name="owner_topic" value="Repair or damage to common parts"><span class="wz-opt-body"><span class="wz-opt-title">A repair or damage to the common parts</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="owner_topic" value="Invoice, payment or balance"><span class="wz-opt-body"><span class="wz-opt-title">An invoice, payment or my balance</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="owner_topic" value="Selling my property"><span class="wz-opt-body"><span class="wz-opt-title">I'm selling my property</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="owner_topic" value="Insurance claim"><span class="wz-opt-body"><span class="wz-opt-title">An insurance claim</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+              <label class="wz-opt"><input type="radio" name="owner_topic" value="Something else"><span class="wz-opt-body"><span class="wz-opt-title">Something else</span></span><svg class="wz-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg></label>
+            </div>
+            <p class="wz-error" role="alert" hidden>Please choose an option to continue.</p>
+          </fieldset>
+          <fieldset class="wz-step" data-step="property" hidden>
+            <legend class="wz-q" tabindex="-1">Where's the building?</legend>
+            <p class="wz-hint">Street address and postcode is perfect.</p>
             <div class="field">
-              <label for="cf-name">Name</label>
-              <input id="cf-name" name="name" type="text" autocomplete="name" required>
+              <label for="cf-address">Property address</label>
+              <input id="cf-address" name="address" type="text" autocomplete="street-address" data-required="true" placeholder="e.g. 12 Example Street, Glasgow G12 8AB">
+              <p class="wz-field-error" hidden>Please add the building's address.</p>
             </div>
             <div class="field">
-              <label for="cf-email">Email</label>
-              <input id="cf-email" name="email" type="email" autocomplete="email" required>
+              <label for="cf-message">Anything else we should know? <span class="opt">(optional)</span></label>
+              <textarea id="cf-message" name="message" placeholder="e.g. current factor is retiring, a roof repair is needed, we want a quote by the spring..."></textarea>
             </div>
-          </div>
-          <div class="form-row">
+          </fieldset>
+
+          <fieldset class="wz-step" data-step="dev_site" hidden>
+            <legend class="wz-q" tabindex="-1">Tell us about the site.</legend>
+            <p class="wz-hint">The development name and where it is.</p>
             <div class="field">
-              <label for="cf-role">I am a</label>
-              <select id="cf-role" name="role">
-                <option>Homeowner</option>
-                <option>Residents' association</option>
-                <option>Developer</option>
-                <option>Tenant</option>
-                <option>Other</option>
-              </select>
+              <label for="cf-site">Development name and location</label>
+              <input id="cf-site" name="site" type="text" data-required="true" placeholder="e.g. Riverside Gardens, Kilmarnock">
+              <p class="wz-field-error" hidden>Please add the development name or location.</p>
             </div>
             <div class="field">
-              <label for="cf-flats">Number of flats</label>
-              <input id="cf-flats" name="flats" type="number" min="1" inputmode="numeric">
+              <label for="cf-dev-message">Anything else we should know? <span class="opt">(optional)</span></label>
+              <textarea id="cf-dev-message" name="dev_message" placeholder="e.g. landscaped areas, SUDS ponds, play park, timescales..."></textarea>
             </div>
+          </fieldset>
+
+          <fieldset class="wz-step" data-step="owner_prop" hidden>
+            <legend class="wz-q" tabindex="-1">Which property, and what's happening?</legend>
+            <p class="wz-hint">We'll pass this straight to your property manager.</p>
+            <div class="field">
+              <label for="cf-owner-address">Your property address</label>
+              <input id="cf-owner-address" name="owner_address" type="text" autocomplete="street-address" data-required="true" placeholder="e.g. Flat 2/1, 12 Example Street, Glasgow">
+              <p class="wz-field-error" hidden>Please add your property address.</p>
+            </div>
+            <div class="field">
+              <label for="cf-owner-message">Tell us what's happening</label>
+              <textarea id="cf-owner-message" name="owner_message" data-required="true" placeholder="e.g. water coming through the close ceiling on the second floor since Monday..."></textarea>
+              <p class="wz-field-error" hidden>Please tell us a little about it.</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="wz-step" data-step="other_msg" hidden>
+            <legend class="wz-q" tabindex="-1">How can we help?</legend>
+            <p class="wz-hint">A sentence or two is plenty.</p>
+            <div class="field">
+              <label for="cf-other-message">Your message</label>
+              <textarea id="cf-other-message" name="other_message" data-required="true"></textarea>
+              <p class="wz-field-error" hidden>Please add a short message.</p>
+            </div>
+          </fieldset>
+
+          <fieldset class="wz-step" data-step="details" hidden>
+            <legend class="wz-q" tabindex="-1">Last step: where should we reply?</legend>
+            <p class="wz-hint">We'll only use these to respond to you.</p>
+            <div class="field">
+              <label for="cf-name">Your name</label>
+              <input id="cf-name" name="name" type="text" autocomplete="name" data-required="true">
+              <p class="wz-field-error" hidden>Please add your name.</p>
+            </div>
+            <div class="field" data-only="development">
+              <label for="cf-company">Company <span class="opt">(optional)</span></label>
+              <input id="cf-company" name="company" type="text" autocomplete="organization">
+            </div>
+            <div class="form-row">
+              <div class="field">
+                <label for="cf-email">Email</label>
+                <input id="cf-email" name="email" type="email" autocomplete="email" inputmode="email" data-required="true" data-type="email">
+                <p class="wz-field-error" hidden>Please add a valid email address.</p>
+              </div>
+              <div class="field">
+                <label for="cf-phone">Phone <span class="opt">(optional)</span></label>
+                <input id="cf-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel">
+              </div>
+            </div>
+            <p class="wz-privacy">By sending this, you're asking us to get back to you about your enquiry. We'll use your details only for that. See our <a href="#privacy">privacy policy</a>.</p>
+          </fieldset>
+
+          <div class="wz-nav">
+            <button type="button" class="btn btn-ghost" id="wzBack" hidden>Back</button>
+            <button type="submit" class="btn btn-navy" id="wzNext">Continue</button>
           </div>
-          <div class="field">
-            <label for="cf-address">Property address</label>
-            <input id="cf-address" name="address" type="text" autocomplete="street-address">
-          </div>
-          <div class="field">
-            <label for="cf-message">What's prompting the enquiry?</label>
-            <textarea id="cf-message" name="message" placeholder="e.g. current factor is retiring, self-managed and want support, roof repair needed..."></textarea>
-          </div>
-          <button class="btn btn-navy" type="submit" style="justify-self:start; margin-top:4px;">Send enquiry</button>
           <p class="form-status" id="enquiryStatus" role="status" aria-live="polite" hidden></p>
-        </form>
+          </form>
+
+          <div class="wz-done" id="wzDone" hidden tabindex="-1">
+            <div class="wz-done-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"></path></svg></div>
+            <h2 id="wzDoneTitle">Thanks, we've got it.</h2>
+            <p id="wzDoneText">Your enquiry is with our team and we'll be in touch shortly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ PRIVACY POLICY ============ -->
+  <div class="page" id="privacy" hidden>
+    <section class="tight" style="padding-top:52px;">
+      <div class="wrap legal">
+        <p class="eyebrow">Privacy policy</p>
+        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:18ch;">How we use your information.</h1>
+        <p class="updated" style="margin-top:14px;">Last updated: 16 November 2026</p>
+
+        <h2>Who we are</h2>
+        <p>ClearFactor is a trading name of ABE Factors Ltd, a company registered in Scotland (company number SC386748). Our registered office is Radleigh House, 1 Golf Road, Clarkston, Glasgow G76 7HU. We are the controller of the personal information described here. If you have any questions, email <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a>.</p>
+        <p>This policy covers our website and enquiries. If you're an owner in a building we factor, your Written Statement of Services and the privacy notice we give you as a customer explain how we use your information to manage your account.</p>
+
+        <h2>What we collect</h2>
+        <ul>
+          <li>What you tell us in our enquiry form: your name, email address, phone number (if you give it), the property or development address, and the details of your enquiry.</li>
+          <li>What you send us by email.</li>
+        </ul>
+        <p>Our website doesn't use cookies, analytics or tracking, and doesn't load anything from advertising or social media companies.</p>
+
+        <h2>Why we use it</h2>
+        <ul>
+          <li>To reply to your enquiry and, if you ask, prepare a quote. We rely on this being a step you've asked us to take before entering into a contract, and on our legitimate interest in responding to people who contact us.</li>
+          <li>If you're already a ClearFactor owner, to deal with your request as part of the factoring services we provide to you.</li>
+        </ul>
+        <p>We won't send you marketing, and we never sell your information.</p>
+
+        <h2>Who we share it with</h2>
+        <p>We use trusted service providers who handle information only on our instructions: Microsoft, which provides our email and the service that delivers website enquiries to our inbox, and GitHub, which hosts this website and, like most web hosts, keeps short-term technical logs such as IP addresses for security. If your enquiry is about a repair or insurance claim, we may share the relevant details with the contractor or insurer dealing with it.</p>
+        <p>Some of these providers may process information outside the UK. Where they do, it's protected by safeguards approved under UK data protection law.</p>
+
+        <h2>How long we keep it</h2>
+        <p>If your enquiry doesn't lead to us working together, we delete it within 12 months. If you become a customer, we keep your information for as long as we manage your building and afterwards for as long as the law requires.</p>
+
+        <h2>Your rights</h2>
+        <p>You can ask us for a copy of the information we hold about you, and ask us to correct it, delete it, restrict how we use it, or object to us using it. Email <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a> and we'll respond within one month.</p>
+        <p>If you're unhappy with how we've handled your information, please tell us first so we can put it right. You can also complain to the Information Commissioner's Office at <a href="https://ico.org.uk/make-a-complaint/" target="_blank" rel="noopener">ico.org.uk/make-a-complaint</a> or on 0303 123 1113.</p>
+
+        <h2>Changes to this policy</h2>
+        <p>If we change this policy, we'll update it here and change the date at the top.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============ WEBSITE TERMS ============ -->
+  <div class="page" id="terms" hidden>
+    <section class="tight" style="padding-top:52px;">
+      <div class="wrap legal">
+        <p class="eyebrow">Website terms</p>
+        <h1 style="font-size:clamp(32px,4.6vw,48px); margin-top:12px; max-width:18ch;">Using this website.</h1>
+        <p class="updated" style="margin-top:14px;">Last updated: 16 November 2026</p>
+
+        <h2>About us</h2>
+        <p>This website is run by ABE Factors Ltd, trading as ClearFactor, a company registered in Scotland (company number SC386748), registered office Radleigh House, 1 Golf Road, Clarkston, Glasgow G76 7HU. We are registered on the Scottish Property Factor Register (registration number PF000342). You can contact us at <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a>.</p>
+
+        <h2>The information on this site</h2>
+        <p>The information here is general and is for guidance only. It isn't legal or financial advice. If you're an owner in a building we manage, the terms of our service to you are set out in your Written Statement of Services and your title deeds, and those take priority over anything on this website.</p>
+        <p>We work to keep the site accurate and up to date, but we can't promise it always will be, or that it will always be available.</p>
+
+        <h2>Our liability</h2>
+        <p>We aren't responsible for any loss that comes from relying on general information on this website. Nothing in these terms limits our liability where it would be unlawful to do so, or affects your rights under our Written Statement of Services or the Property Factors (Scotland) Act 2011.</p>
+
+        <h2>Our content</h2>
+        <p>The ClearFactor name, logo, text and design of this website belong to us or are used with permission. Please don't copy them for commercial use without asking us first.</p>
+
+        <h2>Links to other websites</h2>
+        <p>Where we link to other websites, we do so for your information only. We aren't responsible for their content.</p>
+
+        <h2>Law</h2>
+        <p>These terms are governed by Scots law, and the Scottish courts have jurisdiction.</p>
       </div>
     </section>
   </div>
@@ -1007,11 +1312,13 @@
         <h5>Get in touch</h5>
         <ul>
           <li><a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a></li>
+          <li><a href="#privacy">Privacy policy</a></li>
+          <li><a href="#terms">Website terms</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>&copy; 2026 ClearFactor.</span>
+      <span>&copy; 2026 ClearFactor. ClearFactor is a trading name of ABE Factors Ltd, registered in Scotland (SC386748). Registered office: Radleigh House, 1 Golf Road, Clarkston, Glasgow G76 7HU.</span>
       <span>Registered with the Scottish Property Factor Register. Registration number PF000342.</span>
     </div>
   </div>
@@ -1070,73 +1377,196 @@
       document.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
     }
 
-    // Enquiry form: send in the background and email it straight to the enquiries inbox
+    // Skip link: move focus to the main content without changing the page
+    var skip = document.getElementById('skipLink');
+    var mainEl = document.getElementById('main');
+    if (skip && mainEl) skip.addEventListener('click', function (e) { e.preventDefault(); mainEl.focus(); });
+
+    // ---------- Step-by-step enquiry form ----------
     var form = document.getElementById('enquiryForm');
+    if (!form) return;
     var status = document.getElementById('enquiryStatus');
-    if (form && window.fetch) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var els = form.elements;
-        if (els.namedItem('company_website') && els.namedItem('company_website').value) return; // spam bot
-        var btn = form.querySelector('button[type="submit"]');
-        var val = function (n) { var el = els.namedItem(n); return (el && el.value || '').trim(); };
-        var esc = function (s) {
-          return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-        };
+    var steps = {};
+    Array.prototype.forEach.call(form.querySelectorAll('.wz-step'), function (el) { steps[el.dataset.step] = el; });
+    var PATHS = {
+      quote: ['type', 'role', 'current', 'size', 'property', 'details'],
+      development: ['type', 'dev_stage', 'dev_size', 'dev_site', 'details'],
+      owner: ['type', 'owner_topic', 'owner_prop', 'details'],
+      other: ['type', 'other_msg', 'details']
+    };
+    var TYPE_LABEL = { quote: 'Quote', development: 'New-build development', owner: 'Existing owner', other: 'General enquiry' };
+    var backBtn = document.getElementById('wzBack');
+    var nextBtn = document.getElementById('wzNext');
+    var fill = document.getElementById('wzFill');
+    var track = document.getElementById('wzTrack');
+    var stepLabel = document.getElementById('wzStepLabel');
+    var els = form.elements;
+    var idx = 0;
+    var lastPointer = 0;
+    var kbUsed = false;
 
-        var name = val('name'), email = val('email');
-        var subject = 'New website enquiry: ' + name + ' (' + val('role') + ')';
-        if (val('address')) subject += ' - ' + val('address');
+    function val(n) { var el = els.namedItem(n); if (!el) return ''; return String(el.value || '').trim(); }
+    function path() { return PATHS[val('enquiry_type')] || PATHS.quote; }
+    function current() { return steps[path()[idx]]; }
 
-        var rows = [
-          ['Name', name],
-          ['Email', email],
-          ['I am a', val('role')],
-          ['Number of flats', val('flats') || 'Not given'],
-          ['Property address', val('address') || 'Not given'],
-          ['Message', val('message') || 'No message']
-        ];
-        var html = '<p style="font-family:Arial,sans-serif;font-size:14px;">New enquiry from the ClearFactor website. Hit Reply to respond to ' + esc(name) + ' directly.</p>' +
-          '<table cellpadding="8" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px;">' +
-          rows.map(function (r) {
-            return '<tr><td style="border:1px solid #dfe4ec;background:#f4f6fa;font-weight:bold;vertical-align:top;white-space:nowrap;">' + esc(r[0]) +
-              '</td><td style="border:1px solid #dfe4ec;">' + esc(r[1]).replace(/\n/g, '<br>') + '</td></tr>';
-          }).join('') + '</table>';
-
-        var data = {
-          subject: subject,
-          html: html,
-          replyTo: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : 'enquiries@clearfactor.co.uk'
-        };
-
-        btn.disabled = true;
-        var label = btn.textContent;
-        btn.textContent = 'Sending...';
-        status.hidden = true;
-
-        // Power Automate flow "ClearFactor website enquiries" (Sean's Microsoft 365) emails enquiries@clearfactor.co.uk
-        fetch('https://default5ba13e130559498c9bbec8650a5922.0c.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/27/workflows/3e589392bcb14f0a977d34277b1bc287/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YclaTtdJFfHOlN8cFYOMJjNEegrNuPLIH4o_xJrl9kk', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(data)
-        })
-          .then(function (r) {
-            if (!r.ok) throw new Error('send failed');
-            form.reset();
-            status.className = 'form-status ok';
-            status.textContent = 'Thanks, ' + name.split(' ')[0] + '. Your enquiry has been sent to our team and we\u2019ll be in touch shortly.';
-          })
-          .catch(function () {
-            status.className = 'form-status err';
-            status.innerHTML = 'Sorry, your enquiry couldn’t be sent just now. Please try again, or email us at <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a>.';
-          })
-          .then(function () {
-            status.hidden = false;
-            btn.disabled = false;
-            btn.textContent = label;
-          });
-      });
+    function render(dir) {
+      var p = path(), total = p.length;
+      Object.keys(steps).forEach(function (k) { steps[k].hidden = true; steps[k].classList.remove('back'); });
+      var step = current();
+      step.hidden = false;
+      if (dir === 'back') step.classList.add('back');
+      // Show the company field only for developers
+      Array.prototype.forEach.call(form.querySelectorAll('[data-only]'), function (f) { f.hidden = f.dataset.only !== val('enquiry_type'); });
+      var pct = Math.round((idx / total) * 100);
+      fill.style.width = Math.max(pct, 4) + '%';
+      track.setAttribute('aria-valuenow', pct);
+      stepLabel.textContent = 'Step ' + (idx + 1) + ' of ' + total;
+      backBtn.hidden = idx === 0;
+      var last = idx === total - 1;
+      nextBtn.textContent = last ? 'Send enquiry' : 'Continue';
+      // Choice steps move on when tapped, so Continue is only shown to keyboard users
+      nextBtn.hidden = !!step.querySelector('input[type="radio"]') && !kbUsed;
+      status.hidden = true;
     }
+
+    function focusStep() {
+      var step = current();
+      var input = step.querySelector('input[type="text"], input[type="email"], textarea');
+      var q = step.querySelector('.wz-q');
+      // Focus the first box on typing steps; otherwise the question, so screen readers announce it
+      if (input && window.matchMedia('(hover: hover)').matches) input.focus({ preventScroll: true });
+      else if (q) q.focus({ preventScroll: true });
+      var card = form.closest('.wz-card');
+      var top = card.getBoundingClientRect().top;
+      var navH = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 73;
+      if (top < navH || top > window.innerHeight * 0.6) window.scrollBy({ top: top - navH - 16, behavior: 'smooth' });
+    }
+
+    function setFieldError(input, show) {
+      var msg = input.parentNode.querySelector('.wz-field-error');
+      input.setAttribute('aria-invalid', show ? 'true' : 'false');
+      if (msg) { msg.hidden = !show; if (!msg.id) msg.id = input.id + '-err'; }
+      if (show) input.setAttribute('aria-describedby', msg.id); else input.removeAttribute('aria-describedby');
+    }
+
+    function validate() {
+      var step = current();
+      var radios = step.querySelectorAll('input[type="radio"]');
+      if (radios.length) {
+        var ok = step.querySelector('input[type="radio"]:checked');
+        step.querySelector('.wz-error').hidden = !!ok;
+        if (!ok) radios[0].focus();
+        return !!ok;
+      }
+      var firstBad = null;
+      Array.prototype.forEach.call(step.querySelectorAll('[data-required]'), function (input) {
+        if (input.closest('[hidden]') && input.closest('[hidden]') !== step) return;
+        var v = input.value.trim();
+        var bad = !v || (input.dataset.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
+        setFieldError(input, bad);
+        if (bad && !firstBad) firstBad = input;
+      });
+      if (firstBad) firstBad.focus();
+      return !firstBad;
+    }
+
+    function go(delta) {
+      idx = Math.min(Math.max(idx + delta, 0), path().length - 1);
+      render(delta < 0 ? 'back' : 'next');
+      focusStep();
+    }
+
+    // Tapping an option moves straight on; keyboard users pick with the arrow keys and press Continue
+    var tappedChecked = false;
+    form.addEventListener('pointerdown', function (e) {
+      var opt = e.target.closest('.wz-opt');
+      if (!opt) return;
+      lastPointer = Date.now();
+      tappedChecked = opt.querySelector('input').checked;
+    });
+    // Tapping the option that's already chosen (after going Back) also moves on
+    form.addEventListener('click', function (e) {
+      var opt = e.target.closest('.wz-opt');
+      if (opt && e.target.tagName === 'INPUT' && tappedChecked && Date.now() - lastPointer < 1500) { tappedChecked = false; go(1); }
+    });
+    form.addEventListener('change', function (e) {
+      if (e.target.type !== 'radio') return;
+      var step = e.target.closest('.wz-step');
+      step.querySelector('.wz-error').hidden = true;
+      if (Date.now() - lastPointer < 1500) setTimeout(function () { if (current() === step) go(1); }, 220);
+    });
+    form.addEventListener('input', function (e) {
+      if (e.target.getAttribute('aria-invalid') === 'true' && e.target.value.trim()) setFieldError(e.target, false);
+    });
+    backBtn.addEventListener('click', function () { go(-1); });
+    form.addEventListener('keydown', function (e) {
+      if (!kbUsed && /^(Tab|Arrow|Enter| )/.test(e.key)) { kbUsed = true; nextBtn.hidden = false; }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!validate()) return;
+      if (idx < path().length - 1) { go(1); return; }
+      if (val('company_website')) return; // spam bot
+      send();
+    });
+
+    function esc(str) {
+      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    function send() {
+      var type = val('enquiry_type') || 'quote';
+      var name = val('name'), email = val('email');
+      var where = val('address') || val('site') || val('owner_address');
+      var rows = [['Enquiry type', TYPE_LABEL[type]]];
+      if (type === 'quote') rows.push(['I am a', val('role')], ['Current factor', val('current_factor')], ['Flats or homes', val('units')], ['Property address', val('address')], ['Anything else', val('message') || 'Nothing added']);
+      if (type === 'development') rows.push(['Stage', val('dev_stage')], ['Homes in total', val('dev_units')], ['Development', val('site')], ['Anything else', val('dev_message') || 'Nothing added'], ['Company', val('company') || 'Not given']);
+      if (type === 'owner') rows.push(['About', val('owner_topic')], ['Property address', val('owner_address')], ['Message', val('owner_message')]);
+      if (type === 'other') rows.push(['Message', val('other_message')]);
+      rows.push(['Name', name], ['Email', email], ['Phone', val('phone') || 'Not given']);
+
+      var subject = 'New website enquiry (' + TYPE_LABEL[type] + '): ' + name + (where ? ' - ' + where : '');
+      var html = '<p style="font-family:Arial,sans-serif;font-size:14px;">New enquiry from the ClearFactor website. Hit Reply to respond to ' + esc(name) + ' directly.</p>' +
+        '<table cellpadding="8" style="border-collapse:collapse;font-family:Arial,sans-serif;font-size:14px;">' +
+        rows.map(function (r) {
+          return '<tr><td style="border:1px solid #dfe4ec;background:#f4f6fa;font-weight:bold;vertical-align:top;white-space:nowrap;">' + esc(r[0]) +
+            '</td><td style="border:1px solid #dfe4ec;">' + esc(r[1] || '').replace(/\n/g, '<br>') + '</td></tr>';
+        }).join('') + '</table>';
+
+      var data = { subject: subject, html: html, replyTo: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? email : 'enquiries@clearfactor.co.uk' };
+
+      nextBtn.disabled = true; backBtn.disabled = true;
+      nextBtn.textContent = 'Sending...';
+      status.hidden = true;
+
+      // Power Automate flow "ClearFactor website enquiries" (Sean's Microsoft 365) emails enquiries@clearfactor.co.uk
+      fetch('https://default5ba13e130559498c9bbec8650a5922.0c.environment.api.powerplatform.com:443/powerautomate/automations/direct/cu/27/workflows/3e589392bcb14f0a977d34277b1bc287/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=YclaTtdJFfHOlN8cFYOMJjNEegrNuPLIH4o_xJrl9kk', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function (r) {
+          if (!r.ok) throw new Error('send failed');
+          fill.style.width = '100%';
+          track.setAttribute('aria-valuenow', 100);
+          var done = document.getElementById('wzDone');
+          document.getElementById('wzDoneTitle').textContent = 'Thanks, ' + name.split(' ')[0] + '. We’ve got it.';
+          document.getElementById('wzDoneText').textContent = 'Your enquiry is with our team and we’ll reply to ' + email + ' shortly.';
+          form.hidden = true;
+          done.hidden = false;
+          done.focus();
+        })
+        .catch(function () {
+          status.className = 'form-status err';
+          status.innerHTML = 'Sorry, your enquiry couldn’t be sent just now. Please try again, or email us at <a href="mailto:enquiries@clearfactor.co.uk">enquiries@clearfactor.co.uk</a>.';
+          status.hidden = false;
+          nextBtn.textContent = 'Send enquiry';
+        })
+        .then(function () { nextBtn.disabled = false; backBtn.disabled = false; });
+    }
+
+    render();
   })();
 </script>
 </body>
